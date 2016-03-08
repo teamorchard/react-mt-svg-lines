@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import { shortUID, clamp, trimFloat } from './utils';
+import { shortUID, clamp, trimFloat } from '../utils/utils.js';
 
 
 export default class MtSvgLines extends React.Component {
@@ -23,7 +23,8 @@ export default class MtSvgLines extends React.Component {
       'step-start',
       'step-end'
     ]),
-    options:   PropTypes.string              // iteration-count || direction || fill-mode (perhaps even play-state )
+    options:   PropTypes.string             // iteration-count || direction || fill-mode (perhaps even play-state )
+                                            // https://developer.mozilla.org/en-US/docs/Web/CSS/animation
   };
 
   // defaults

@@ -2,8 +2,8 @@ require( './stylesheet.scss' );
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ComponentDemo from './ComponentDemo';
+import DemoPage from './components/DemoPage';
 
 ReactDOM.render((
-  <ComponentDemo />
+  <DemoPage />
 ), document.getElementById( 'component' ) );
