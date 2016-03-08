@@ -15,11 +15,11 @@ export default class MtSvgLines extends React.Component {
     duration:  PropTypes.number,            // total anim duration (ms)
     stagger:   PropTypes.number,            // timing spread between lines (percentage)
     timing:    React.PropTypes.oneOf([      // easing type
-      'linear',
       'ease',
       'ease-in',
       'ease-out',
       'ease-in-out',
+      'linear',
       'step-start',
       'step-end'
     ]),
@@ -110,7 +110,7 @@ export default class MtSvgLines extends React.Component {
         let length = trimFloat( path.getTotalLength() );
 
         // check paths for data-mt="skip" and set those to zero length
-        // NOTE: path.attributes is an obj with indexed keys, so we must iterate over them..
+        // NOTE: path.attributes is an obj with indexed keys, so we must iterate over them
         // { '0': { name: 'd', value: 'M37.063' }, '1': { name: 'data-mt', value: 'skip' }, ... }
         for( let key in path.attributes ) {
           const { name, value } = path.attributes[ key ];
@@ -153,22 +153,31 @@ export default class MtSvgLines extends React.Component {
     const { animate, duration, stagger } = this.props;
     const { animId }  = this.state;
 
+    // check if 'animate' prop is truthy AND internal classUID has changed
     if ( animate && animId !== this._lastAnimId ) {
-      // determine number of path elems in svg
-      const pathLenghts  = getPathLengths.call( this );
-      const pathQty      = pathLenghts.length || 1;
+      let css ='';
+      
+      if ( animate === 'hide' ) {
+        // if 'hide' passed, set the entire container trasparent
+        css=`.${ animId } { opacity: 0; }`;
+        
+      } else {
+        // otherwise, animate away..
+        // 1) determine number of path elems in svg
+        const pathLenghts  = getPathLengths.call( this );
+        const pathQty      = pathLenghts.length || 1;
 
-      // calc all timing values
-      const startDelay       = typeof animate === 'number' ? animate : 0;   // if numeric, treat as delay (ms)
-      const staggerMult      = clamp( stagger, 0, 100 ) / 100;              // convert percentage to 0-1
-      const pathStaggerDelay = ( stagger > 0 ? duration/pathQty * staggerMult : 0 );
-      const pathDrawDuration = ( stagger > 0 ? duration/pathQty * ( 2 - staggerMult ) : duration );
+        // 2) calc all timing values
+        const startDelay       = typeof animate === 'number' ? animate : 0;   // if numeric, treat as delay (ms)
+        const staggerMult      = clamp( stagger, 0, 100 ) / 100;              // convert percentage to 0-1
+        const pathStaggerDelay = ( stagger > 0 ? duration/pathQty * staggerMult : 0 );
+        const pathDrawDuration = ( stagger > 0 ? duration/pathQty * ( 2 - staggerMult ) : duration );
 
-      // concat generated CSS, one path at a time..
-      let css = '';
-      pathLenghts.forEach( ( length, index ) => {
-        css += getPathCSS.call( this, index, length, startDelay, pathStaggerDelay, pathDrawDuration );
-      });
+        // 3) concat generated CSS, one path at a time..
+        pathLenghts.forEach( ( length, index ) => {
+          css += getPathCSS.call( this, index, length, startDelay, pathStaggerDelay, pathDrawDuration );
+        });
+      }
 
       // remember curent UID
       this._lastAnimId = animId;
