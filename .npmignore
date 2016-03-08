@@ -1,2 +1,7 @@
 src/
 public/
+test/
+karma.conf.js
+tests.js
+webpack.config.js
+webpack.dist.js
