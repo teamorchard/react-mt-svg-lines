@@ -1,10 +1,10 @@
 react-mt-svg-lines
 ==================
 
-*NOTE: Still experimenting, not ready for "public consumption"...*
+*NOTE: In progress, not ready for "public consumption"...*
 
 ### Bring your SVGs to life
-A wrapper component that lets you trigger "animated lines" in your SVGs. Use it to add visual interest to status icons, loading spinners, diagrams, schematics, or just any fun stuff!
+A wrapper component that lets you trigger "animated lines" in your SVGs. Use it to add visual interest to status icons, diagrams, schematics, loading spinners, or just any fun stuff! Have a look at the [demo](http://moarwick.github.io/react-mt-svg-lines)
 
 ### How it works
 The component wraps an SVG as `children` and generates the required CSS to animate the `stroke-dashoffset` property on every `path` element inside (you can exclude specific paths). For a description of the technique, see [CSS-Tricks](https://css-tricks.com/svg-line-animation-works/).
@@ -41,3 +41,4 @@ Render in JSX, wrapping any SVG content..
 * You should always specify the `viewBox` on your SVG, so that you can render it at any size. By default, the SVG content will expand to fill its container, but you can give it a `width` (either in finite units, or percentage).
 
 ### Props
+TODO...
