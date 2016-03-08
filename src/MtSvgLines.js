@@ -66,52 +66,50 @@ export default class MtSvgLines extends React.Component {
     const { animId, css } = this.state;
 
     return (
-      <span>
+      <span
+        ref={ ( c ) => this._svg = c }
+        className={ `${ className } ${ animId }` }
+        { ...props }
+      >
         <style>
           { css }
         </style>
-        <svg
-          ref={ ( c ) => this._svg = c }
-          className={ `${ className } ${ animId }` }
-          { ...props }
-        >
-          { children }
-        </svg>
+
+        { children }
       </span>
     );
   }
 
 
   componentDidMount() {
-    this._updateCSS();
+    this._refreshCSS();
   }
 
 
   componentDidUpdate() {
-    this._updateCSS();
+    this._refreshCSS();
   }
 
 
   // ------------------------------------------------------
 
 
-  _getUniqueAnimId() {
-    return `mt-${ shortUID() }`;
-  }
-
-
-  _updateCSS() {
-
+  // (re)generate CSS only if 1) the 'animate' prop is truthy, AND 2) the internal 'animId' changed
+  // the CSS refresh in the DOM re-starts the animation (upon re-render)
+  _refreshCSS() {
     // helper: return an array containing lengths of all path elems inside the svg
     function getPathLengths() {
-      const pathElems = findDOMNode( this._svg ).querySelectorAll( 'path' ) || [];
+
+      const pathElems = findDOMNode( this._svg )
+        .getElementsByTagName( 'svg' )[0]
+        .querySelectorAll( 'path' ) || [];
 
       return [].map.call( pathElems, ( path ) => {
         // get path length
         let length = trimFloat( path.getTotalLength() );
 
-        // zero out length if path contains attribute data-mt="skip"
-        // path.attributes is an obj with indexed keys, so we must iterate over them..
+        // check paths for data-mt="skip" and set those to zero length
+        // NOTE: path.attributes is an obj with indexed keys, so we must iterate over them..
         // { '0': { name: 'd', value: 'M37.063' }, '1': { name: 'data-mt', value: 'skip' }, ... }
         for( let key in path.attributes ) {
           const { name, value } = path.attributes[ key ];
@@ -151,8 +149,6 @@ export default class MtSvgLines extends React.Component {
       `;
     }
 
-    // (re)generate CSS only if 1) the 'animate' prop is truthy, AND 2) the internal 'animId' changed
-    // the updated CSS, once rendered, will re-init the animation
     const { animate, duration, stagger } = this.props;
     const { animId }  = this.state;
 
@@ -167,7 +163,7 @@ export default class MtSvgLines extends React.Component {
       const pathStaggerDelay = ( stagger > 0 ? duration/pathQty * staggerMult : 0 );
       const pathDrawDuration = ( stagger > 0 ? duration/pathQty * ( 2 - staggerMult ) : duration );
 
-      // concat generated CSS one path at a time..
+      // concat generated CSS, one path at a time..
       let css = '';
       pathLenghts.forEach( ( length, index ) => {
         css += getPathCSS.call( this, index, length, startDelay, pathStaggerDelay, pathDrawDuration );
@@ -183,6 +179,10 @@ export default class MtSvgLines extends React.Component {
       });
     }
 
+  }
+
+  _getUniqueAnimId() {
+    return `mt-${ shortUID() }`;
   }
 
 }
