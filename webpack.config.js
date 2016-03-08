@@ -36,9 +36,13 @@ var commonConfig = {
         loader: 'url-loader?limit=8192&name=./img/[hash].[ext]'    // inline if under 8k
       },
       {
-        test:    /\.(woff|woff2|eot|ttf|svg)$/,
+        test:    /\.(woff|woff2|eot|ttf)$/,
         exclude: /node_modules/,
         loader: 'url-loader?limit=2048&name=./fonts/[hash].[ext]'  // inline if under 2k
+      },
+      {
+        test:   /\.svg$/,
+        loader: 'babel!svg-react'
       }
     ]
   },

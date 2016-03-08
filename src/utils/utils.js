@@ -1,5 +1,5 @@
 /*
- * Clamp a number within the specified min - max range
+ * Clamp a number within the specified min-max range
  */
 export function clamp( value, min, max ) {
   return Math.min( Math.max( value, min ), max );
@@ -7,7 +7,7 @@ export function clamp( value, min, max ) {
 
 
 /*
- * Round float number to 2 decimals
+ * Round a float to 2 decimal places
  */
 export function trimFloat( value ) {
   return Math.round( value * 100 ) / 100;
