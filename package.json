@@ -1,9 +1,16 @@
 {
   "name": "react-mt-svg-lines",
   "description": "A React component to animate the line stroke in SVGs",
-  "keywords": [ "react", "svg", "animate", "line", "path", "stroke"],
+  "keywords": [
+    "react",
+    "svg",
+    "animate",
+    "line",
+    "path",
+    "stroke"
+  ],
   "author": "Peter Morawiec",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
@@ -19,7 +26,9 @@
     "test": "karma start"
   },
   "browserify": {
-    "transform": ["reactify"]
+    "transform": [
+      "reactify"
+    ]
   },
   "babel": {
     "presets": [
