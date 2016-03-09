@@ -3,7 +3,7 @@ react-mt-svg-lines
 
 ### Bring your SVGs to life
 
-![GIF Demo]('showcase.gif')
+![GIF Demo](showcase.gif)
 
 [Live Demo](http://moarwick.github.io/react-mt-svg-lines)
 
