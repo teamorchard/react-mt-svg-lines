@@ -13,7 +13,7 @@ export default class MtSvgLines extends React.Component {
       PropTypes.bool                        // - pass false (or omit) to draw static SVG (no animation)
     ]),
     duration:  PropTypes.number,            // total anim duration (ms)
-    stagger:   PropTypes.number,            // timing spread between lines (percentage)
+    stagger:   PropTypes.number,            // delay between start times of each path (percentage)
     timing:    React.PropTypes.oneOf([      // easing type
       'ease',
       'ease-in',
@@ -41,14 +41,14 @@ export default class MtSvgLines extends React.Component {
   constructor( props ) {
     super( props );
 
-    // animId is used to: 1) generate unique CSS class names, 2) and as an internal anim "trigger"
+    // classKey is a unique class name, used as internal anim "trigger" (re-generated each time anim is to run)
     this.state = {
-      animId: this._getUniqueAnimId(),
-      css:    ''
+      classKey: this._getUniqueClassKey(),
+      css:      ''
     };
 
-    this._lastAnimate = null;
-    this._lastAnimId  = null;
+    this._lastAnimate  = null;
+    this._lastClassKey = null;
   }
 
 
@@ -57,19 +57,19 @@ export default class MtSvgLines extends React.Component {
 
     if ( animate !== this._lastAnimate ) {
       this._lastAnimate = animate;
-      this.setState({ animId: this._getUniqueAnimId() });
+      this.setState( { classKey: this._getUniqueClassKey() } );
     }
   }
 
 
   render() {
     const { className, animate, duration, stagger, timing, children, ...props } = this.props;
-    const { animId, css } = this.state;
+    const { classKey, css } = this.state;
 
     return (
       <span
         ref={ ( c ) => this._svg = c }
-        className={ `${ className } ${ animId }` }
+        className={ `${ className } ${ classKey }` }
         { ...props }
       >
         <style>
@@ -95,10 +95,10 @@ export default class MtSvgLines extends React.Component {
   // ------------------------------------------------------
 
 
-  // (re)generate CSS only if 1) the 'animate' prop is truthy, AND 2) the internal 'animId' changed
-  // the CSS refresh in the DOM re-starts the animation (upon re-render)
+  // (re)generate CSS only if 1) the 'animate' prop is truthy, AND 2) the internal 'classKey' changed
+  // the CSS refresh in the DOM kicks off the animation
   _refreshCSS() {
-    // helper: return an array containing lengths of all path elems inside the svg
+    // helper: return an array containing lengths of all path elems inside the SVG
     function getPathLengths() {
 
       const pathElems = findDOMNode( this._svg )
@@ -123,12 +123,12 @@ export default class MtSvgLines extends React.Component {
       });
     }
 
-    // helper: return CSS for a single path elem (using index for CSS selector and unique anim key name)
+    // helper: return CSS for a single path elem (using classKey and path index as the CSS selector)
     function getPathCSS( index, length, startDelay, staggerDelay, duration ) {
-      const { animId }          = this.state;
+      const { classKey }          = this.state;
       const { timing, options } = this.props;
 
-      const keysId     = `${ animId }-${ index + 1 }`;
+      const keysId     = `${ classKey }-${ index + 1 }`;
       const totalDelay = length ? trimFloat( ( startDelay + staggerDelay * index ) / 1000 ) : 0;
 
       duration = duration ? trimFloat( duration / 1000 ) : 0;
@@ -138,7 +138,7 @@ export default class MtSvgLines extends React.Component {
           0%   { stroke-dashoffset: ${ length }; opacity: 1; }
           100% { stroke-dashoffset: 0; opacity: 1; }
         }
-        .${ animId } path:nth-of-type( ${ index + 1 } ) {
+        .${ classKey } path:nth-of-type( ${ index + 1 } ) {
           opacity:                 0.01;
           stroke-dasharray:        ${ length };
           stroke-dashoffset:       ${ length };
@@ -151,15 +151,15 @@ export default class MtSvgLines extends React.Component {
     }
 
     const { animate, duration, stagger } = this.props;
-    const { animId }  = this.state;
+    const { classKey }  = this.state;
 
-    // check if 'animate' prop is truthy AND internal classUID has changed
-    if ( animate && animId !== this._lastAnimId ) {
+    // check if 'animate' prop is truthy AND internal classKey has changed
+    if ( animate && classKey !== this._lastClassKey ) {
       let css ='';
       
       if ( animate === 'hide' ) {
         // if 'hide' passed, set the entire container trasparent
-        css=`.${ animId } { opacity: 0; }`;
+        css=`.${ classKey } { opacity: 0; }`;
         
       } else {
         // otherwise, animate away..
@@ -179,19 +179,16 @@ export default class MtSvgLines extends React.Component {
         });
       }
 
-      // remember curent UID
-      this._lastAnimId = animId;
+      // remember UID
+      this._lastClassKey = classKey;
 
       // set state (re-render)
-      this.setState({
-        animId,
-        css
-      });
+      this.setState({ classKey, css });
     }
 
   }
 
-  _getUniqueAnimId() {
+  _getUniqueClassKey() {
     return `mt-${ shortUID() }`;
   }
 

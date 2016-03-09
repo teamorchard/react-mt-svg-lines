@@ -25,26 +25,27 @@ export default class DemoPage extends React.Component {
     
     return (
       <div style={ styles.wrapper }>
-        <h2 style={ styles.title }>demo: MtSvgLines</h2>
+        <span style={ styles.gitHub }><a href="https://github.com/moarwick/react-mt-svg-lines">GitHub &raquo;</a></span>
+        <h2 style={ styles.title }>MtSvgLines</h2>
 
         <div style={ styles.column }>
-
+          
           <MtSvgLines
             animate={ triggerCheckAnim }
           >
             <SvgCheckmark />
           </MtSvgLines>
 
-          <a style={ styles.link } 
-            href="#" 
-            data-trigger="triggerCheckAnim" 
-            onClick={ this._handleAnimateClick }
-          >
-            animate &raquo;
-          </a>
-          <p style={ styles.caption }>
-            default props
-          </p>
+          <div style={ styles.info }>
+            { this._renderTrigger( "triggerCheckAnim" ) }
+            <p style={ styles.props }>
+              <em>default props</em><br/>
+              duration: <strong>1000</strong><br/>
+              stagger:  <strong>0</strong><br/>
+              timing:   <strong>ease</strong><br/>
+              options:  <strong>forwards</strong>
+            </p>
+          </div>
         </div>
 
         <div style={ styles.column }>
@@ -58,20 +59,18 @@ export default class DemoPage extends React.Component {
             <SvgSignature />
           </MtSvgLines>
           
-          <a style={ styles.link } 
-            href="#" 
-            data-trigger="triggerSigAnim" 
-            onClick={ this._handleAnimateClick }
-          >
-            animate &raquo;
-          </a>
-          <p style={ styles.caption }>
-            stagger 100%<br/>
-            linear
-          </p>
+          <div style={ styles.info }>
+            { this._renderTrigger( "triggerSigAnim" ) }
+            <p style={ styles.props }>
+              duration: <strong>2000</strong><br/>
+              stagger:  <strong>100</strong><br/>
+              timing:   <strong>linear</strong>
+            </p>
+          </div>
         </div>
 
         <div style={ styles.column }>
+          
           <MtSvgLines
             animate={ triggerChartAnim }
             duration={ 4000 }
@@ -81,45 +80,54 @@ export default class DemoPage extends React.Component {
             <SvgChart />
           </MtSvgLines>
           
-          <a style={ styles.link } 
-            href="#" 
-            data-trigger="triggerChartAnim" 
-            onClick={ this._handleAnimateClick }
-          >
-            animate &raquo;
-          </a>
-          <p style={ styles.caption }>
-            stagger 50%<br/>
-            ease-in
-          </p>
+          <div style={ styles.info }>
+            { this._renderTrigger( "triggerChartAnim" ) }
+            <p style={ styles.props }>
+              duration: <strong>4000</strong><br/>
+              stagger:  <strong>20</strong><br/>
+              timing:   <strong>ease-in</strong><br/>
+              <em>skip path</em>
+            </p>
+          </div>
         </div>
 
         <div style={ styles.column }>
+          
           <MtSvgLines
             animate={ triggerSpinnerAnim }
-            duration={ 2000 }
+            duration={ 1500 }
             stagger={ 20 }
             timing="linear"
-            options="6 alternate-reverse both"
+            options="2 alternate-reverse both"
           >
             <SvgSpinner />
           </MtSvgLines>
           
-          <a style={ styles.link } 
-            href="#" 
-            data-trigger="triggerSpinnerAnim" 
-            onClick={ this._handleAnimateClick }
-          >
-            animate &raquo;
-          </a>
-          <p style={ styles.caption }>
-            stagger 20%<br/>
-            linear<br/>
-            alternate-reverse both infinite
-          </p>
+          <div style={ styles.info }>
+            { this._renderTrigger( "triggerSpinnerAnim" ) }
+            <p style={ styles.props }>
+              duration: <strong>1500</strong><br/>
+              stagger:  <strong>20</strong><br/>
+              timing:   <strong>linear</strong><br/>
+              options:  <strong>6 alternate-reverse both</strong>
+            </p>
+          </div>
         </div>
-
+        
       </div>
+    );
+  }
+  
+  // button partial
+  _renderTrigger( triggerProp ) {
+    return (
+      <a style={ styles.link } 
+        href="#" 
+        data-trigger={ triggerProp }
+        onClick={ this._handleAnimateClick }
+      >
+        animate &raquo;
+      </a>
     );
   }
   
@@ -136,29 +144,35 @@ export default class DemoPage extends React.Component {
 
 const styles = {
   wrapper: {
-    maxWidth: '720px',
+    maxWidth: '800px',
     margin:   '30px auto 0 auto'
+  },
+  gitHub: {
+    float: 'right'
   },
   title: {
     width:         '100%',
     paddingBottom: '10px',
     color:         '#888',
+    fontWeight:    '200',
     borderBottom:  '1px dotted #888'
   },
   column: {
     width:     '25%',
     float:     'left',
-    textAlign: 'center'
+    fontSize:  '12px',
+  },
+  info: {
+    padding: '10px 0 0 10px'
   },
   link: {
-    fontSize:       '12px',
     textDecoration: 'none',
     padding:        '0 3px',
     color:          '#E52029',
     border:         '1px solid #E52029',
-    borderRadius:   '3px'
+    borderRadius:   '3px',
   },
-  caption: {
+  props: {
     color: '#4C6A98'
   }
 };

@@ -16,15 +16,14 @@ export default function() {
         <path stroke="#8AB8C4" d="M77.5 3v90"/>
         <path stroke="#8AB8C4" d="M6 75.5h90"/>
 
-        <path stroke="#4C6A98" strokeWidth="3" d="M4.5 4.5h90v90h-90z"/>
-
-        <circle stroke="#E22431" strokeWidth="3" cx="13" cy="32" r="3"/>
-        <circle stroke="#E22431" strokeWidth="3" cx="86" cy="65" r="3"/>
-        <path stroke="#E22431" strokeWidth="5" d="M16 32.2c42.7 2 54.1 15.7 67.9 30.7"/>
-
-        <circle stroke="#02A9B2" strokeWidth="3" cx="16" cy="82" r="3"/>
-        <circle stroke="#02A9B2" strokeWidth="3" cx="83" cy="14" r="3"/>
-        <path stroke="#02A9B2" strokeWidth="5" d="M17.4 79.3c6.9-12.5 15.5-23.7 30.1-26.2 17-3 28.2-15.9 34.6-36.2"/>
+        <path data-mt="skip" stroke="#4C6A98" strokeWidth="3" d="M4.5 4.5h90v90h-90z"/>
+        
+        <path stroke="#E9B539" strokeWidth="12" d="M22 85V52"/>
+        <path stroke="#E9B539" strokeWidth="12" d="M40 85V34"/>
+        <path stroke="#E9B539" strokeWidth="12" d="M58 85V38"/>
+        <path stroke="#E9B539" strokeWidth="12" d="M76 85V17"/>
+        
+        <path stroke="#3EB735" strokeWidth="5" d="M10.2 78.6c6.9-12.5 23.1-21.3 37.2-25.5 17.4-5.1 33.8-9.8 40.2-30.2"/>
       </g>
     </svg>
   );
