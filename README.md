@@ -11,7 +11,7 @@ A React.js wrapper component that lets you trigger "animated lines" in your SVGs
 
 
 ### How it works
-The component wraps an SVG and injects CSS required to animate the `stroke-dashoffset` property on every* `path` element within. For a description of the technique, see this [article](https://css-tricks.com/svg-line-animation-works/).
+The component wraps an SVG and injects CSS required to animate the `stroke-dashoffset` property on every `path` element within. For a description of the technique, see this [article](https://css-tricks.com/svg-line-animation-works/).
 
 
 ### Installation
@@ -27,7 +27,7 @@ import MtSvgLines from 'react-mt-svg-lines';
 var MtSvgLines = require('react-mt-svg-lines');
 ```
 
-In your JSX, wrap it around any valid SVG... 
+In your JSX, wrap it around any valid SVG...
 ```js
 <MtSvgLines animate={ true } duration={ 250 }>
   <svg viewBox="0 0 100 100">
@@ -35,7 +35,6 @@ In your JSX, wrap it around any valid SVG...
   </svg>
 </MtSvgLines>
 ```
-BOOM!
 
 
 ### Props
@@ -51,7 +50,7 @@ Your animation "trigger key":
 * `number` triggers animation after a delay, per the passed in value (ms)  
 * `"hide"` hides the SVG (rendered with `opacity: 0`)
 
-If you need to re-trigger the animation, simply pass in a new `string` or `number` (different from the last value). You can generate it, e.g. `String( Date.now() )`. Have a look at the [DemoPage](https://github.com/moarwick/react-mt-svg-lines/blob/master/src/components/DemoPage.js) code. 
+If you need to re-trigger the animation, simply pass in a new `string` or `number` (different from the last value). You can generate it, e.g. `String( Date.now() )`. Have a look at the [DemoPage](https://github.com/moarwick/react-mt-svg-lines/blob/master/src/components/DemoPage.js) code.
 
 ##### `duration: number`
 Desired duration of one full cycle of the entire animation, across all paths (ms). Default is `1000`.
@@ -66,15 +65,13 @@ Desired CSS "timing function" type: `"ease" || "ease-in" || "ease-out" || "ease-
 Any additional valid CSS [`animation`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation) shorthand props, specifically `iteration-count || direction || fill-mode || play-state`. Default is `"forwards"` (play once and stop), but feel free to experiment. For example, the spinner example is set to `"6 alternate-reverse both"`.
 
 > All other `props` are passed through to the wrapper `span`
- 
 
-### Getting Fancy
-What if you don't want the animation applied to *ALL* of the path elements inside your SVG? Add a data attribute of `data-mt=skip` to any path and it will draw instantly. So will other SVG shapes (see below).
+
+### Extra Controls
+What if you don't want the animation applied to *ALL* paths inside your SVG? Add a data attribute of `data-mt="skip"` to any path element and it will draw instantly. So will other SVG shapes (see below).
 
 
 ### Current Caveats
 * The technique only applies to SVG `path` elements with a `stroke` defined. Other SVG primitives, e.g. circles, rectangles, polylines, will render instantly.
-* The path elements should sit at the same nesting level within the SVG structure. Otherwise, the generated CSS rules will not target correctly. Also, the order matters. You can edit your SVGs manually, or try [svgo](https://github.com/svg/svgo).
-* You should always specify the `viewBox` on your SVG, so that you can render it at any size. By default, the SVG content will expand to fill its container, but you can give it a `width` (either in finite units, or percentage).
-
- 
+* The path elements should sit at the same nesting level within the SVG structure (otherwise, the generated CSS rules will not target correctly). Also, staggered timing is applied to the elements in the order they appear in the SVG. You can edit your SVGs manually, or try [svgo](https://github.com/svg/svgo).
+* Remember to specify the `viewBox` on your SVGs, so they be freely sized. By default, the SVG content will expand to fill its container, but you can give it a `width` (either in finite units, or percentage).

@@ -43,22 +43,22 @@ export default class MtSvgLines extends React.Component {
 
     // classKey is a unique class name, used as internal anim "trigger" (re-generated each time anim is to run)
     this.state = {
-      classKey: this._getUniqueClassKey(),
-      css:      ''
+      classKey: '',     // unique class name for the wrapper, acts as an internal "trigger")
+      css:      ''      // generated CSS
     };
 
-    this._lastAnimate  = null;
-    this._lastClassKey = null;
+    this._lastAnimate  = '';
+    this._lastClassKey = '';
+  }
+
+
+  componentWillMount() {
+    this._setClassKey( this.props.animate );
   }
 
 
   componentWillReceiveProps( nextProps ) {
-    const { animate } = nextProps;
-
-    if ( animate !== this._lastAnimate ) {
-      this._lastAnimate = animate;
-      this.setState( { classKey: this._getUniqueClassKey() } );
-    }
+    this._setClassKey( nextProps.animate );
   }
 
 
@@ -95,37 +95,48 @@ export default class MtSvgLines extends React.Component {
   // ------------------------------------------------------
 
 
-  // (re)generate CSS only if 1) the 'animate' prop is truthy, AND 2) the internal 'classKey' changed
+  // determine if to generate new classKey based on the incoming 'animate' prop
+  _setClassKey( animate ) {
+    if ( animate !== this._lastAnimate ) {
+      this._lastAnimate = animate;
+      this.setState( { classKey: this._getUniqueClassKey() } );
+    }
+  }
+
+  // (re)generate CSS if 1) the 'animate' prop is truthy, AND 2) the internal 'classKey' changed
   // the CSS refresh in the DOM kicks off the animation
   _refreshCSS() {
-    // helper: return an array containing lengths of all path elems inside the SVG
-    function getPathLengths() {
 
+    // chelper: check path attributes for data-mt="skip"
+    function _hasSkipAttr( attributes ) {
+      let result = false;
+
+      // path.attributes is an obj with indexed keys, so we must iterate over them
+      // { '0': { name: 'd', value: 'M37.063' }, '1': { name: 'data-mt', value: 'skip' }, ... }
+      for( let key in attributes ) {
+        const { name, value } = attributes[ key ];
+        if ( !result && name === 'data-mt' && value === 'skip' ) {
+          result = true;
+        }
+      }
+
+      return result;
+    }
+
+    // helper: return an array containing lengths of all path elems inside the SVG
+    function _getPathLengths() {
       const pathElems = findDOMNode( this._svg )
         .getElementsByTagName( 'svg' )[0]
         .querySelectorAll( 'path' ) || [];
 
       return [].map.call( pathElems, ( path ) => {
-        // get path length
-        let length = trimFloat( path.getTotalLength() );
-
-        // check paths for data-mt="skip" and set those to zero length
-        // NOTE: path.attributes is an obj with indexed keys, so we must iterate over them
-        // { '0': { name: 'd', value: 'M37.063' }, '1': { name: 'data-mt', value: 'skip' }, ... }
-        for( let key in path.attributes ) {
-          const { name, value } = path.attributes[ key ];
-          if ( name === 'data-mt' && value === 'skip' ) {
-            length = 0;
-          }
-        }
-
-        return length;
+        return _hasSkipAttr( path.attributes ) ? 0 : trimFloat( path.getTotalLength() );
       });
     }
 
     // helper: return CSS for a single path elem (using classKey and path index as the CSS selector)
-    function getPathCSS( index, length, startDelay, staggerDelay, duration ) {
-      const { classKey }          = this.state;
+    function _getPathCSS( index, length, startDelay, staggerDelay, duration ) {
+      const { classKey }        = this.state;
       const { timing, options } = this.props;
 
       const keysId     = `${ classKey }-${ index + 1 }`;
@@ -151,21 +162,21 @@ export default class MtSvgLines extends React.Component {
     }
 
     const { animate, duration, stagger } = this.props;
-    const { classKey }  = this.state;
+    const { classKey } = this.state;
 
     // check if 'animate' prop is truthy AND internal classKey has changed
     if ( animate && classKey !== this._lastClassKey ) {
       let css ='';
-      
+
       if ( animate === 'hide' ) {
         // if 'hide' passed, set the entire container trasparent
         css=`.${ classKey } { opacity: 0; }`;
-        
+
       } else {
         // otherwise, animate away..
         // 1) determine number of path elems in svg
-        const pathLenghts  = getPathLengths.call( this );
-        const pathQty      = pathLenghts.length || 1;
+        const pathLenghts = _getPathLengths.call( this );
+        const pathQty     = pathLenghts.length || 1;
 
         // 2) calc all timing values
         const startDelay       = typeof animate === 'number' ? animate : 0;   // if numeric, treat as delay (ms)
@@ -175,15 +186,15 @@ export default class MtSvgLines extends React.Component {
 
         // 3) concat generated CSS, one path at a time..
         pathLenghts.forEach( ( length, index ) => {
-          css += getPathCSS.call( this, index, length, startDelay, pathStaggerDelay, pathDrawDuration );
+          css += _getPathCSS.call( this, index, length, startDelay, pathStaggerDelay, pathDrawDuration );
         });
       }
 
-      // remember UID
+      // remember UID for next refresh
       this._lastClassKey = classKey;
 
       // set state (re-render)
-      this.setState({ classKey, css });
+      this.setState({ css });
     }
 
   }

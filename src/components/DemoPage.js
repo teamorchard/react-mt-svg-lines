@@ -11,25 +11,25 @@ import SvgSpinner from './SvgSpinner';
 export default class DemoPage extends React.Component {
   constructor( props ) {
     super( props );
-    
+
     this.state = {
-      triggerCheckAnim:   false,
-      triggerSigAnim:     false,
-      triggerChartAnim:   false,
-      triggerSpinnerAnim: false
+      triggerCheckAnim:   true,
+      triggerSigAnim:     true,
+      triggerChartAnim:   true,
+      triggerSpinnerAnim: true
     };
   }
-  
+
   render() {
     const { triggerCheckAnim, triggerSigAnim, triggerChartAnim, triggerSpinnerAnim } = this.state;
-    
+
     return (
       <div style={ styles.wrapper }>
         <span style={ styles.gitHub }><a href="https://github.com/moarwick/react-mt-svg-lines">GitHub &raquo;</a></span>
         <h2 style={ styles.title }>MtSvgLines</h2>
 
         <div style={ styles.column }>
-          
+
           <MtSvgLines
             animate={ triggerCheckAnim }
           >
@@ -37,7 +37,7 @@ export default class DemoPage extends React.Component {
           </MtSvgLines>
 
           <div style={ styles.info }>
-            { this._renderTrigger( "triggerCheckAnim" ) }
+            { this._renderTrigger( 'triggerCheckAnim') }
             <p style={ styles.props }>
               <em>default props</em><br/>
               duration: <strong>1000</strong><br/>
@@ -49,7 +49,7 @@ export default class DemoPage extends React.Component {
         </div>
 
         <div style={ styles.column }>
-          
+
           <MtSvgLines
             animate={ triggerSigAnim }
             duration={ 2000 }
@@ -58,9 +58,9 @@ export default class DemoPage extends React.Component {
           >
             <SvgSignature />
           </MtSvgLines>
-          
+
           <div style={ styles.info }>
-            { this._renderTrigger( "triggerSigAnim" ) }
+            { this._renderTrigger( 'triggerSigAnim' ) }
             <p style={ styles.props }>
               duration: <strong>2000</strong><br/>
               stagger:  <strong>100</strong><br/>
@@ -70,7 +70,7 @@ export default class DemoPage extends React.Component {
         </div>
 
         <div style={ styles.column }>
-          
+
           <MtSvgLines
             animate={ triggerChartAnim }
             duration={ 4000 }
@@ -79,9 +79,9 @@ export default class DemoPage extends React.Component {
           >
             <SvgChart />
           </MtSvgLines>
-          
+
           <div style={ styles.info }>
-            { this._renderTrigger( "triggerChartAnim" ) }
+            { this._renderTrigger( 'triggerChartAnim' ) }
             <p style={ styles.props }>
               duration: <strong>4000</strong><br/>
               stagger:  <strong>20</strong><br/>
@@ -92,19 +92,19 @@ export default class DemoPage extends React.Component {
         </div>
 
         <div style={ styles.column }>
-          
+
           <MtSvgLines
             animate={ triggerSpinnerAnim }
             duration={ 1500 }
             stagger={ 20 }
             timing="linear"
-            options="2 alternate-reverse both"
+            options="6 alternate-reverse both"
           >
             <SvgSpinner />
           </MtSvgLines>
-          
+
           <div style={ styles.info }>
-            { this._renderTrigger( "triggerSpinnerAnim" ) }
+            { this._renderTrigger( 'triggerSpinnerAnim' ) }
             <p style={ styles.props }>
               duration: <strong>1500</strong><br/>
               stagger:  <strong>20</strong><br/>
@@ -113,16 +113,16 @@ export default class DemoPage extends React.Component {
             </p>
           </div>
         </div>
-        
+
       </div>
     );
   }
-  
+
   // button partial
   _renderTrigger( triggerProp ) {
     return (
-      <a style={ styles.link } 
-        href="#" 
+      <a style={ styles.link }
+        href="#"
         data-trigger={ triggerProp }
         onClick={ this._handleAnimateClick }
       >
@@ -130,15 +130,15 @@ export default class DemoPage extends React.Component {
       </a>
     );
   }
-  
+
   // when any "animate &raquo;" link is clicked, set the corresponding 'animate' prop to trigger it
   _handleAnimateClick = ( e ) => {
     e.preventDefault();
-    
+
     const triggerKey = e.target.dataset.trigger;    // determine which clicked from its data attr
-    const triggerVal = String( Date.now() );        // generate a unique string to pass to 'animate'    
-    
-    this.setState( { [ triggerKey ]: triggerVal } ); 
+    const triggerVal = String( Date.now() );        // generate a unique string to pass to 'animate'
+
+    this.setState( { [ triggerKey ]: triggerVal } );
   }
 }
 
@@ -159,20 +159,20 @@ const styles = {
   },
   column: {
     width:     '25%',
-    float:     'left',
-    fontSize:  '12px',
+    float:     'left'
   },
   info: {
-    padding: '10px 0 0 10px'
+    padding: '10px 0 0 4%'
   },
   link: {
     textDecoration: 'none',
-    padding:        '0 3px',
+    padding:        '0 3px 2px',
     color:          '#E52029',
     border:         '1px solid #E52029',
-    borderRadius:   '3px',
+    borderRadius:   '3px'
   },
   props: {
-    color: '#4C6A98'
+    fontSize: '12px',
+    color:    '#4C6A98'
   }
 };
