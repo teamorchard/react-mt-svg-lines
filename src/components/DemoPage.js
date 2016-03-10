@@ -29,7 +29,6 @@ export default class DemoPage extends React.Component {
         <h2 style={ styles.title }>MtSvgLines</h2>
 
         <div style={ styles.column }>
-
           <MtSvgLines
             animate={ triggerCheckAnim }
           >
@@ -43,7 +42,8 @@ export default class DemoPage extends React.Component {
               duration: <strong>1000</strong><br/>
               stagger:  <strong>0</strong><br/>
               timing:   <strong>ease</strong><br/>
-              options:  <strong>forwards</strong>
+              playback: <strong>forwards</strong><br/>
+              fade:     <strong>false</strong>
             </p>
           </div>
         </div>
@@ -76,6 +76,7 @@ export default class DemoPage extends React.Component {
             duration={ 4000 }
             stagger={ 50 }
             timing="ease-in"
+            fade={ true }
           >
             <SvgChart />
           </MtSvgLines>
@@ -84,8 +85,9 @@ export default class DemoPage extends React.Component {
             { this._renderTrigger( 'triggerChartAnim' ) }
             <p style={ styles.props }>
               duration: <strong>4000</strong><br/>
-              stagger:  <strong>20</strong><br/>
+              stagger:  <strong>50</strong><br/>
               timing:   <strong>ease-in</strong><br/>
+              fade:     <strong>true</strong><br/>
               <em>skip path</em>
             </p>
           </div>
@@ -98,7 +100,7 @@ export default class DemoPage extends React.Component {
             duration={ 1500 }
             stagger={ 20 }
             timing="linear"
-            options="6 alternate-reverse both"
+            playback="2 alternate-reverse both"
           >
             <SvgSpinner />
           </MtSvgLines>
@@ -109,7 +111,7 @@ export default class DemoPage extends React.Component {
               duration: <strong>1500</strong><br/>
               stagger:  <strong>20</strong><br/>
               timing:   <strong>linear</strong><br/>
-              options:  <strong>6 alternate-reverse both</strong>
+              playback: <strong>2 alternate-reverse both</strong>
             </p>
           </div>
         </div>

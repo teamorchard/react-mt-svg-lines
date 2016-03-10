@@ -9,7 +9,7 @@ export default class MtSvgLines extends React.Component {
     className: PropTypes.string,            // custom CSS class (applied to svg elem)
     animate:   PropTypes.oneOfType([        // external animation trigger
       PropTypes.string,                     // - pass a unique string or true to (re)start animation
-      PropTypes.number,                     // - pass number to specify delay before animation begins (ms)
+      PropTypes.number,                     // - pass a number to specify delay before the animation begins (ms)
       PropTypes.bool                        // - pass false (or omit) to draw static SVG (no animation)
     ]),
     duration:  PropTypes.number,            // total anim duration (ms)
@@ -23,8 +23,8 @@ export default class MtSvgLines extends React.Component {
       'step-start',
       'step-end'
     ]),
-    options:   PropTypes.string             // iteration-count || direction || fill-mode (perhaps even play-state )
-                                            // https://developer.mozilla.org/en-US/docs/Web/CSS/animation
+    playback:  PropTypes.string,            // iteration-count || direction || fill-mode (perhaps even play-state )
+    fade:      PropTypes.bool               // apply a fade-in to each path
   };
 
   // defaults
@@ -34,7 +34,8 @@ export default class MtSvgLines extends React.Component {
     duration:  1000,
     stagger:   0,
     timing:    'ease',
-    options:   'forwards'
+    playback:  'forwards',
+    fade:      false
   };
 
 
@@ -136,25 +137,26 @@ export default class MtSvgLines extends React.Component {
 
     // helper: return CSS for a single path elem (using classKey and path index as the CSS selector)
     function _getPathCSS( index, length, startDelay, staggerDelay, duration ) {
-      const { classKey }        = this.state;
-      const { timing, options } = this.props;
+      const { classKey } = this.state;
+      const { timing, playback, fade } = this.props;
 
-      const keysId     = `${ classKey }-${ index + 1 }`;
-      const totalDelay = length ? trimFloat( ( startDelay + staggerDelay * index ) / 1000 ) : 0;
+      const keysId       = `${ classKey }-${ index + 1 }`;
+      const totalDelay   = length ? trimFloat( ( startDelay + staggerDelay * index ) / 1000 ) : 0;
+      const startOpacity = fade ? 0.01 : 1;
 
       duration = duration ? trimFloat( duration / 1000 ) : 0;
 
       return `
         @keyframes ${ keysId } {
-          0%   { stroke-dashoffset: ${ length }; opacity: 1; }
+          0%   { stroke-dashoffset: ${ length }; opacity: ${ startOpacity }; }
           100% { stroke-dashoffset: 0; opacity: 1; }
         }
         .${ classKey } path:nth-of-type( ${ index + 1 } ) {
           opacity:                 0.01;
           stroke-dasharray:        ${ length };
           stroke-dashoffset:       ${ length };
-          -webkit-animation:       ${ keysId } ${ duration }s ${ timing } ${ options };
-          animation:               ${ keysId } ${ duration }s ${ timing } ${ options };
+          -webkit-animation:       ${ keysId } ${ duration }s ${ timing } ${ playback };
+          animation:               ${ keysId } ${ duration }s ${ timing } ${ playback };
           -webkit-animation-delay: ${ totalDelay }s;
           animation-delay:         ${ totalDelay }s;
         }
