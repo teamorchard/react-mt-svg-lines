@@ -56,7 +56,7 @@ If you need to re-trigger the animation, simply pass in a new `string` or `numbe
 Desired duration of one full cycle of the entire animation, across all paths (ms). Default is `1000`.
 
 ##### `stagger: number (0-100)`
-Delay between the start times of each path, in SVGs with multiple paths. Default is `0`.
+Delay between the start times of each path (when multiple paths are present within the SVG). Default is `0`.
 
 ##### `timing: string`
 Desired CSS "timing function" type: `"ease" || "ease-in" || "ease-out" || "ease-in-out" || "linear" || "step-start" || "step-end"`. Default is `"ease"`.
@@ -74,4 +74,4 @@ What if you don't want the animation applied to *ALL* paths inside your SVG? Add
 ### Current Caveats
 * The technique only applies to SVG `path` elements with a `stroke` defined. Other SVG primitives, e.g. circles, rectangles, polylines, will render instantly.
 * The path elements should sit at the same nesting level within the SVG structure (otherwise, the generated CSS rules will not target correctly). Also, staggered timing is applied to the elements in the order they appear in the SVG. You can edit your SVGs manually, or try [svgo](https://github.com/svg/svgo).
-* Remember to specify the `viewBox` on your SVGs, so they be freely sized. By default, the SVG content will expand to fill its container, but you can give it a `width` (either in finite units, or percentage).
+* Remember to specify the `viewBox` on your SVGs, so they can be scaled to any size. By default, the SVG content will expand to fill its container, but you can give it a `width` (either in finite units, or percentage).
