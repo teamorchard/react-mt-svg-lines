@@ -2,6 +2,7 @@
   "name": "react-mt-svg-lines",
   "description": "A React component to animate the line stroke in SVGs",
   "keywords": [
+    "react-component",
     "react",
     "svg",
     "animate",
