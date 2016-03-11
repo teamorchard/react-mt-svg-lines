@@ -40,7 +40,7 @@ In your JSX, wrap it around any valid SVG...
 
 ### Props
 
-The component comes a reasonable set of defaults. The only prop required to engage it is `animate`.
+The component comes with a reasonable set of defaults. The only prop required to engage it is `animate`.
 
 ##### `className: string`
 Any custom CSS class you'd like applied to the component's `span` wrapper. Default is `"mt-svg"`.
