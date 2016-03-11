@@ -1,5 +1,5 @@
 import React from 'react';
-import MtSvgLines from '../dist/';
+import MtSvgLines from '../dist/';      // test the built bundle (correct?)
 
 describe( 'MtSvgLines', function () {
 

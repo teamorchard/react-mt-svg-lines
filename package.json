@@ -20,7 +20,7 @@
   "bugs": "https://github.com/moarwick/react-mt-svg-lines/issues",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --content-base src/",
+    "start": "webpack-dev-server --content-base src/demo/",
     "build": "rimraf public && node_modules/webpack/bin/webpack.js --progress --profile --colors",
     "dist": "node_modules/webpack/bin/webpack.js --config webpack.dist.js",
     "prepublish": "npm run dist",

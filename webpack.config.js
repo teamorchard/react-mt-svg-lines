@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 var autoprefixer      = require( 'autoprefixer' );
 var ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 
-var TARGET_ENV        = process.env.npm_lifecycle_event === 'build' ? 'production' : 'development';
+var TARGET_ENV = process.env.npm_lifecycle_event === 'build' ? 'production' : 'development';
 
 // common Webpack config settings
 var commonConfig = {
@@ -14,8 +14,8 @@ var commonConfig = {
   },
 
   output: {
-    path:       path.resolve( __dirname, 'public/' ),
-    filename:   '[hash].min.js'
+    path:     path.resolve( __dirname, 'public/' ),
+    filename: '[hash].min.js'
   },
 
   module: {
@@ -49,7 +49,7 @@ var commonConfig = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: 'src/demo/index.html',
       inject:   'body',
       filename: 'index.html'
     })
@@ -60,7 +60,7 @@ var commonConfig = {
 
 // additional Webpack settings when running locally ('npm start')
 if ( TARGET_ENV === 'development' ) {
-  console.log( 'Serving locally...');
+  console.log( 'Serving demo locally...');
 
   module.exports = merge( commonConfig, {
 
@@ -79,7 +79,7 @@ if ( TARGET_ENV === 'development' ) {
     entry: [
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      './src/index'
+      './src/demo/index'
     ],
 
     module: {
@@ -105,12 +105,12 @@ if ( TARGET_ENV === 'development' ) {
 
 // additional Webpack settings when bundling for prod ('npm run build')
 if ( TARGET_ENV === 'production' ) {
-  console.log( 'Building for prod...');
+  console.log( 'Building demo for prod...');
 
   module.exports = merge( commonConfig, {
 
     entry: [
-      path.join( __dirname, 'src/index.js' )
+      path.join( __dirname, 'src/demo/index.js' )
     ],
 
     module: {

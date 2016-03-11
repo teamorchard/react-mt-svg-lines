@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import { shortUID, clamp, trimFloat } from '../utils/utils.js';
+import { shortUID, clamp, trimFloat } from './utils.js';
 
 
 export default class MtSvgLines extends React.Component {

@@ -2,7 +2,7 @@ var path    = require( 'path' );
 var webpack = require( 'webpack' );
 
 module.exports = {
-  entry: './src/components/MtSvgLines.js',
+  entry: './src/lib/MtSvgLines.js',
 
   output: {
     path:          path.resolve( __dirname, 'dist/' ),
