@@ -2,7 +2,7 @@ require( './stylesheet.scss' );
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DemoPage from './components/DemoPage';
+import DemoPage from './sections/DemoPage';
 
 ReactDOM.render((
   <DemoPage />

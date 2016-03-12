@@ -1,12 +1,12 @@
 import React from 'react';
 
-import MtSvgLines from './MtSvgLines';
+import MtSvgLines from '../../MtSvgLines';
 // import MtSvgLines from './../../dist/';
 
-import SvgCheckmark from './SvgCheckmark';
-import SvgSignature from './SvgSignature';
-import SvgChart from './SvgChart';
-import SvgSpinner from './SvgSpinner';
+import SvgCheckmark from '../components/SvgCheckmark';
+import SvgSignature from '../components/SvgSignature';
+import SvgChart from '../components/SvgChart';
+import SvgSpinner from '../components/SvgSpinner';
 
 export default class DemoPage extends React.Component {
   constructor( props ) {

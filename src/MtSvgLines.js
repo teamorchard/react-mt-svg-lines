@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import { shortUID, clamp, trimFloat } from '../utils/utils.js';
+import { shortUID, clamp, trimFloat } from './utils.js';
 
 
 export default class MtSvgLines extends React.Component {
@@ -23,7 +23,7 @@ export default class MtSvgLines extends React.Component {
       'step-start',
       'step-end'
     ]),
-    playback:  PropTypes.string,            // iteration-count || direction || fill-mode (perhaps even play-state )
+    playback:  PropTypes.string,            // iteration-count || direction || fill-mode (perhaps even play-state)
     fade:      PropTypes.bool               // apply a fade-in to each path
   };
 
@@ -44,7 +44,7 @@ export default class MtSvgLines extends React.Component {
 
     // classKey is a unique class name, used as internal anim "trigger" (re-generated each time anim is to run)
     this.state = {
-      classKey: '',     // unique class name for the wrapper, acts as an internal "trigger")
+      classKey: '',     // unique class name for the wrapper, acts as an internal "trigger"
       css:      ''      // generated CSS
     };
 
@@ -108,7 +108,7 @@ export default class MtSvgLines extends React.Component {
   // the CSS refresh in the DOM kicks off the animation
   _refreshCSS() {
 
-    // chelper: check path attributes for data-mt="skip"
+    // helper: check path attributes for data-mt="skip"
     function _hasSkipAttr( attributes ) {
       let result = false;
 
@@ -171,7 +171,7 @@ export default class MtSvgLines extends React.Component {
       let css ='';
 
       if ( animate === 'hide' ) {
-        // if 'hide' passed, set the entire container trasparent
+        // if 'hide' passed, set the entire container as ~trasparent
         css=`.${ classKey } { opacity: 0; }`;
 
       } else {

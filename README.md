@@ -22,7 +22,7 @@ npm install react-mt-svg-lines --save
 ### Usage
 Require `MtSvgLines` into your component (you can import it under any name)...
 ```js
-import MtSvgLines from 'react-mt-svg-lines';
+import MtSvgLines from 'react-mt-svg-lines';      // ES6+
 // or...
 var MtSvgLines = require('react-mt-svg-lines');
 ```
@@ -35,12 +35,15 @@ In your JSX, wrap it around any valid SVG...
   </svg>
 </MtSvgLines>
 ```
+> When you move up to React v15.0+, it appears that it no longer requires SVG attributes to be camel-cased in JSX. So, rather than `strokeWidth` or `strokeLinecap`, you should be good with the standard `stroke-width`, `stroke-linecap`, etc.
 
 
 ### Props
 
+The component comes with a reasonable set of defaults. The only prop required to engage it is `animate`.
+
 ##### `className: string`
-Your custom CSS class to be applied to the `span` wrapper. Default is `"mt-svg"`.
+Any custom CSS class you'd like applied to the component's `span` wrapper. Default is `"mt-svg"`.
 
 ##### `animate: string || number || bool`
 Your animation "trigger key":
@@ -66,6 +69,7 @@ Any additional valid CSS [`animation`](https://developer.mozilla.org/en-US/docs/
 
 ##### `fade: bool`
 Apply a *fade-in* transition to each path. If a path has a `fill` color, the entire element will fade in while the line is drawn. Default is `false`.
+
 
 > All other `props` are passed through to the wrapper `span`
 
