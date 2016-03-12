@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MtSvgLines from '../../lib/MtSvgLines';
+import MtSvgLines from '../../MtSvgLines';
 // import MtSvgLines from './../../dist/';
 
 import SvgCheckmark from '../components/SvgCheckmark';

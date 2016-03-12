@@ -49,7 +49,7 @@ var commonConfig = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/demo/index.html',
+      template: 'src/demos/index.html',
       inject:   'body',
       filename: 'index.html'
     })
@@ -79,7 +79,7 @@ if ( TARGET_ENV === 'development' ) {
     entry: [
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      './src/demo/index'
+      './src/demos/index'
     ],
 
     module: {
@@ -110,7 +110,7 @@ if ( TARGET_ENV === 'production' ) {
   module.exports = merge( commonConfig, {
 
     entry: [
-      path.join( __dirname, 'src/demo/index.js' )
+      path.join( __dirname, 'src/demos/index' )
     ],
 
     module: {
