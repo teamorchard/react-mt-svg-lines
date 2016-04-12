@@ -11,7 +11,9 @@ A tiny React.js wrapper component that lets you trigger "animated lines" in your
 
 
 ### How it works
-The component wraps an SVG and injects CSS required to animate the `stroke-dashoffset` property on every `path` element within. Since it utilizes CSS, it does not rely on any tweening libs. For a description of the technique, see [this article](https://css-tricks.com/svg-line-animation-works/).
+The component wraps your SVG and injects CSS required to animate the `stroke-dashoffset` property on every `path` element within. Since it utilizes CSS, it does not rely on any tweening libs. For a description of the technique, see [this article](https://css-tricks.com/svg-line-animation-works/).
+
+> Sadly, this technique does not work in IE. I'm thinking of adding JS-powered version soon...  
 
 
 ### Installation
