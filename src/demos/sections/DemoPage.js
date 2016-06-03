@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MtSvgLines from '../../MtSvgLines';
-// import MtSvgLines from './../../dist/';
+// import MtSvgLines from '../../../dist';    // NOTE: uncomment to test built lib
 
 import SvgCheckmark from '../components/SvgCheckmark';
 import SvgSignature from '../components/SvgSignature';
