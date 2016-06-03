@@ -24,6 +24,7 @@ export default class MtSvgLines extends React.Component {
       'step-end'
     ]),
     playback:  PropTypes.string,            // iteration-count || direction || fill-mode (perhaps even play-state)
+    callback:  PropTypes.func,              // callback fn to run when when anim completes
     fade:      PropTypes.bool               // apply a fade-in to each path
   };
 
@@ -35,6 +36,7 @@ export default class MtSvgLines extends React.Component {
     stagger:   0,
     timing:    'ease',
     playback:  'forwards',
+    callback:  () => {},
     fade:      false
   };
 
@@ -163,11 +165,11 @@ export default class MtSvgLines extends React.Component {
       `;
     }
 
-    const { animate, duration, stagger } = this.props;
+    const { animate, duration, stagger, playback, callback } = this.props;
     const { classKey } = this.state;
 
     // check if 'animate' prop is truthy AND internal classKey has changed
-    if ( animate && classKey !== this._lastClassKey ) {
+    if ( animate !== false && classKey !== this._lastClassKey ) {
       let css ='';
 
       if ( animate === 'hide' ) {
@@ -184,12 +186,19 @@ export default class MtSvgLines extends React.Component {
         const startDelay       = typeof animate === 'number' ? animate : 0;   // if numeric, treat as delay (ms)
         const staggerMult      = clamp( stagger, 0, 100 ) / 100;              // convert percentage to 0-1
         const pathStaggerDelay = ( stagger > 0 ? duration/pathQty * staggerMult : 0 );
-        const pathDrawDuration = ( stagger > 0 ? duration/pathQty * ( 2 - staggerMult ) : duration );
+        const pathDrawDuration = ( stagger > 0 ? duration - (( pathStaggerDelay * ( pathQty - 1 ) ) * ( 2 - staggerMult )) : duration );
 
         // 3) concat generated CSS, one path at a time..
         pathLenghts.forEach( ( length, index ) => {
           css += _getPathCSS.call( this, index, length, startDelay, pathStaggerDelay, pathDrawDuration );
         });
+
+        // 4) set up on-complete timer
+        const numOfRepeats = parseInt( playback, 10 ) || 1;
+        const t = setTimeout( () => {
+          clearTimeout( t );
+          callback();
+        }, startDelay + duration * numOfRepeats );
       }
 
       // remember UID for next refresh

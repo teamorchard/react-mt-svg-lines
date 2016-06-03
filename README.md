@@ -57,6 +57,9 @@ Your animation "trigger key":
 
 If you need to re-trigger the animation, simply pass in a new `string` or `number` (different from the last value). You can generate it, e.g. `String( Date.now() )`. Have a look at the [DemoPage](https://github.com/moarwick/react-mt-svg-lines/blob/master/src/components/DemoPage.js) code.
 
+##### `callback: function`
+Callback function, executes when animation concludes.
+
 ##### `duration: number`
 Desired duration of one full cycle of the entire animation, across all paths (ms). Default is `1000`.
 
