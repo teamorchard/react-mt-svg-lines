@@ -19,5 +19,20 @@ export function trimFloat( value ) {
  * http://stackoverflow.com/questions/6248666/how-to-generate-short-uid-like-ax4j9z-in-js
  */
 export function shortUID() {
-  return ( '0000' + ( Math.random() * Math.pow(36,4) << 0 ).toString(36) ).slice( -4 );
+  return ( '0000' + ( Math.random() * Math.pow( 36, 4 ) << 0 ).toString( 36 ) ).slice( -4 );
+}
+
+/*
+ * Determine if Microsoft browser (IE8+ or Edge)
+ */
+export function isMsBrowser() {
+  return Boolean( document.documentMode || /Edge/.test( navigator.userAgent ) );
+}
+
+
+/*
+ * Determine if value is present in array (or string), return bool
+ */
+export function contains( arrayOrString, value  ) {
+  return arrayOrString.indexOf( value ) > -1;
 }
