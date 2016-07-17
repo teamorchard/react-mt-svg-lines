@@ -1,6 +1,8 @@
 react-mt-svg-lines
 ==================
 
+[![NPM](https://nodei.co/npm/react-mt-svg-lines.png?downloads=true)](https://nodei.co/npm/react-mt-svg-lines/)
+
 ### Bring your SVGs to life
 
 ![GIF Demo](showcase.gif)
