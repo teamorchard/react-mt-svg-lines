@@ -337,6 +337,10 @@ export default class MtSvgLines extends React.Component {
     duration = duration ? trimFloat( duration / 1000 ) : 0;
 
     return `
+      @-webkit-keyframes ${ keysId } {
+        0%   { stroke-dashoffset: ${ length }; opacity: ${ startOpacity }; }
+        100% { stroke-dashoffset: 0; opacity: 1; }
+      }
       @keyframes ${ keysId } {
         0%   { stroke-dashoffset: ${ length }; opacity: ${ startOpacity }; }
         100% { stroke-dashoffset: 0; opacity: 1; }
