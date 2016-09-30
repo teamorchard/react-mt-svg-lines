@@ -67,7 +67,7 @@ Callback function, executes when animation concludes.
 Desired duration of one full cycle of the entire animation, across all paths (ms). Default is `1000`.
 
 ##### `jsOnly: bool`
-Apply `tween.js` to drive animations using JavaScript regardless of browser. Default is `false` (kick in on IE/Edge only, via browser sniffing).
+Apply `tween.js` to drive animations using JavaScript regardless of browser. Default is `false` (kicks in on IE/Edge only, via browser sniffing).
 
 ##### `fade: bool`
 Apply a *fade-in* transition to each path. If a path has a `fill` color, the entire element will fade in while the line is drawn. Default is `false`. *Not supported in JS mode.*
