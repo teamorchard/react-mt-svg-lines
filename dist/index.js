@@ -1,1 +1,1563 @@
-!function(t,n){if("object"==typeof exports&&"object"==typeof module)module.exports=n(require("react"),require("react-dom"));else if("function"==typeof define&&define.amd)define(["react","react-dom"],n);else{var e="object"==typeof exports?n(require("react"),require("react-dom")):n(t.react,t["react-dom"]);for(var a in e)("object"==typeof exports?exports:t)[a]=e[a]}}(this,function(t,n){return function(t){function n(a){if(e[a])return e[a].exports;var r=e[a]={exports:{},id:a,loaded:!1};return t[a].call(r.exports,r,r.exports,n),r.loaded=!0,r.exports}var e={};return n.m=t,n.c=e,n.p="",n(0)}([function(t,n,e){"use strict";function a(t){return t&&t.__esModule?t:{"default":t}}function r(t,n){var e={};for(var a in t)n.indexOf(a)>=0||Object.prototype.hasOwnProperty.call(t,a)&&(e[a]=t[a]);return e}function o(t,n){if(!(t instanceof n))throw new TypeError("Cannot call a class as a function")}function i(t,n){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!n||"object"!=typeof n&&"function"!=typeof n?t:n}function u(t,n){if("function"!=typeof n&&null!==n)throw new TypeError("Super expression must either be null or a function, not "+typeof n);t.prototype=Object.create(n&&n.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),n&&(Object.setPrototypeOf?Object.setPrototypeOf(t,n):t.__proto__=n)}Object.defineProperty(n,"__esModule",{value:!0});var s=Object.assign||function(t){for(var n=1;n<arguments.length;n++){var e=arguments[n];for(var a in e)Object.prototype.hasOwnProperty.call(e,a)&&(t[a]=e[a])}return t},c=function(){function t(t,n){for(var e=0;e<n.length;e++){var a=n[e];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(t,a.key,a)}}return function(n,e,a){return e&&t(n.prototype,e),a&&t(n,a),n}}(),f=e(1),l=a(f),p=e(2),h=e(3),m=e(4),y=a(m),d={ease:y["default"].Easing.Quadratic.InOut,"ease-in":y["default"].Easing.Cubic.In,"ease-out":y["default"].Easing.Cubic.Out,"ease-in-out":y["default"].Easing.Cubic.InOut,linear:y["default"].Easing.Linear.None,"step-start":y["default"].Easing.Bounce.In,"step-end":y["default"].Easing.Bounce.Out},v=function(t){function n(t){o(this,n);var e=i(this,Object.getPrototypeOf(n).call(this,t));return e._onTweenUpdate=function(){e._setStrokeDashoffset(e._pathElems,e._tweenData),e._animate()},e._onAnimComplete=function(){e.props.callback(),e._animStart=0},e.state={classKey:"",css:"",tweenElapsed:0,tweenProgress:0},e._lastAnimate="",e._lastClassKey="",e._animStart=0,e._pathElems=[],e._pathDataFrom={},e._pathDataTo={},e._tweenData={},e}return u(n,t),c(n,[{key:"componentWillMount",value:function(){this._setClassKey(this.props.animate)}},{key:"componentWillReceiveProps",value:function(t){this._setClassKey(t.animate)}},{key:"render",value:function(){var t=this,n=this.props,e=n.className,a=n.animate,o=(n.duration,n.stagger,n.timing,n.playback,n.fade,n.jsOnly,n.children),i=(n.callback,r(n,["className","animate","duration","stagger","timing","playback","fade","jsOnly","children","callback"])),u=this.state,c=u.classKey,f=u.css,p="hide"===a;return l["default"].createElement("span",s({ref:function(n){return t._svgWrapper=n},className:e+" "+c,style:{opacity:p?.01:1}},i),l["default"].createElement("style",null,f),o)}},{key:"componentDidMount",value:function(){this._animate()}},{key:"componentDidUpdate",value:function(){this._animate()}},{key:"_animate",value:function(){var t=this,n=this.props,e=n.animate,a=n.duration,r=n.stagger,o=n.timing,i=n.playback,u=n.jsOnly,c=this.state.classKey,f=e!==!1&&c!==this._lastClassKey,l=(0,h.isMsBrowser)()||u;f?!function(){t._animStart=Date.now(),t._lastClassKey=c;var n="number"==typeof e?e:0,u=parseInt(i,10)||0;l?!function(){u>0&&(u-=1),(0,h.contains)(i,"infinite")&&(u=1/0);var e=(0,h.contains)(i,"alternate");t._pathElems=t._selectPathElems();var r=t._getPathData(t._pathElems);t._pathDataFrom=r.from,t._pathDataTo=r.to,t._tweenData=s({},t._pathDataFrom),t._setStrokeDasharray(t._pathElems,t._pathDataFrom),t._setStrokeDashoffset(t._pathElems,t._tweenData);var c=new y["default"].Tween(t._tweenData).to(t._pathDataTo,a).easing(d[o]).repeat(u).yoyo(e).onUpdate(t._onTweenUpdate).onComplete(t._onAnimComplete),f=setTimeout(function(){c.start(),y["default"].update(),clearTimeout(f)},Math.max(1,n))}():!function(){var e="",o=t._getPathLengths(),i=o.length||1,s=(0,h.clamp)(r,0,100)/100,c=r>0?a/i*s:0,f=r>0?a-c*(i-1)*(2-s):a;o.forEach(function(a,r){e+=t._getPathCSS(r,a,n,c,f)});var l=setTimeout(function(){clearTimeout(l),t._onAnimComplete()},n+a*u);t.setState({css:e})}()}():this._animStart&&l&&requestAnimationFrame(y["default"].update)}},{key:"_selectPathElems",value:function(){var t=(0,p.findDOMNode)(this._svgWrapper).getElementsByTagName("svg")[0];return t?t.querySelectorAll("path"):[]}},{key:"_getPathData",value:function(t){var n=this,e={from:{},to:{}};return[].forEach.call(t,function(t,a){if(!n._hasSkipAttr(t.attributes)){var r=(0,h.trimFloat)(t.getTotalLength());e.to[a]=0,e.from[a]=r}}),e}},{key:"_hasSkipAttr",value:function(t){var n=!1;for(var e in t){var a=t[e],r=a.name,o=a.value;if(!n&&"data-mt"===r&&"skip"===o){n=!0;break}}return n}},{key:"_setStrokeDasharray",value:function(t,n){[].forEach.call(t,function(t,e){n[e]&&(t.style.strokeDasharray=n[e])})}},{key:"_setStrokeDashoffset",value:function(t,n){[].forEach.call(t,function(t,e){n[e]&&(t.style.strokeDashoffset=n[e])})}},{key:"_getPathLengths",value:function(){var t=this,n=this._selectPathElems();return[].map.call(n,function(n){return t._hasSkipAttr(n.attributes)?0:(0,h.trimFloat)(n.getTotalLength())})}},{key:"_getPathCSS",value:function(t,n,e,a,r){var o=this.state.classKey,i=this.props,u=i.timing,s=i.playback,c=i.fade,f=o+"-"+(t+1),l=n?(0,h.trimFloat)((e+a*t)/1e3):0,p=c?.01:1;return r=r?(0,h.trimFloat)(r/1e3):0,"\n      @-webkit-keyframes "+f+" {\n        0%   { stroke-dashoffset: "+n+"; opacity: "+p+"; }\n        100% { stroke-dashoffset: 0; opacity: 1; }\n      }\n      @keyframes "+f+" {\n        0%   { stroke-dashoffset: "+n+"; opacity: "+p+"; }\n        100% { stroke-dashoffset: 0; opacity: 1; }\n      }\n      ."+o+" path:nth-of-type( "+(t+1)+" ) {\n        opacity:                 0.01;\n        stroke-dasharray:        "+n+";\n        stroke-dashoffset:       "+n+";\n        -webkit-animation:       "+f+" "+r+"s "+u+" "+s+";\n        animation:               "+f+" "+r+"s "+u+" "+s+";\n        -webkit-animation-delay: "+l+"s;\n        animation-delay:         "+l+"s;\n      }\n    "}},{key:"_setClassKey",value:function(t){t!==this._lastAnimate&&(this._lastAnimate=t,this.setState({classKey:"mt-"+(0,h.shortUID)()}))}}]),n}(l["default"].Component);v.propTypes={className:f.PropTypes.string,animate:f.PropTypes.oneOfType([f.PropTypes.string,f.PropTypes.number,f.PropTypes.bool]),duration:f.PropTypes.number,stagger:f.PropTypes.number,timing:l["default"].PropTypes.oneOf(["ease","ease-in","ease-out","ease-in-out","linear","step-start","step-end"]),playback:f.PropTypes.string,fade:f.PropTypes.bool,callback:f.PropTypes.func,jsOnly:f.PropTypes.bool},v.defaultProps={className:"mt-svg",animate:!1,duration:1e3,stagger:0,timing:"ease",playback:"forwards",fade:!1,callback:function(){},jsOnly:!1},n["default"]=v},function(n,e){n.exports=t},function(t,e){t.exports=n},function(t,n){"use strict";function e(t,n,e){return Math.min(Math.max(t,n),e)}function a(t){return Math.round(100*t)/100}function r(){return("0000"+(Math.random()*Math.pow(36,4)<<0).toString(36)).slice(-4)}function o(){return Boolean(document.documentMode||/Edge/.test(navigator.userAgent))}function i(t,n){return t.indexOf(n)>-1}Object.defineProperty(n,"__esModule",{value:!0}),n.clamp=e,n.trimFloat=a,n.shortUID=r,n.isMsBrowser=o,n.contains=i},function(t,n,e){var a,r;"function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol?"symbol":typeof t};!function(){if("performance"in window==!1&&(window.performance={}),Date.now=Date.now||function(){return(new Date).getTime()},"now"in window.performance==!1){var t=window.performance.timing&&window.performance.timing.navigationStart?window.performance.timing.navigationStart:Date.now();window.performance.now=function(){return Date.now()-t}}}();var o=o||function(){var t=[];return{getAll:function(){return t},removeAll:function(){t=[]},add:function(n){t.push(n)},remove:function(n){var e=t.indexOf(n);e!==-1&&t.splice(e,1)},update:function(n){if(0===t.length)return!1;var e=0;for(n=void 0!==n?n:window.performance.now();e<t.length;)t[e].update(n)?e++:t.splice(e,1);return!0}}}();o.Tween=function(t){var n=t,e={},a={},r={},i=1e3,u=0,s=!1,c=!1,f=!1,l=0,p=null,h=o.Easing.Linear.None,m=o.Interpolation.Linear,y=[],d=null,v=!1,g=null,_=null,w=null;for(var b in t)e[b]=parseFloat(t[b],10);this.to=function(t,n){return void 0!==n&&(i=n),a=t,this},this.start=function(t){o.add(this),c=!0,v=!1,p=void 0!==t?t:window.performance.now(),p+=l;for(var i in a){if(a[i]instanceof Array){if(0===a[i].length)continue;a[i]=[n[i]].concat(a[i])}void 0!==e[i]&&(e[i]=n[i],e[i]instanceof Array==!1&&(e[i]*=1),r[i]=e[i]||0)}return this},this.stop=function(){return c?(o.remove(this),c=!1,null!==w&&w.call(n),this.stopChainedTweens(),this):this},this.stopChainedTweens=function(){for(var t=0,n=y.length;t<n;t++)y[t].stop()},this.delay=function(t){return l=t,this},this.repeat=function(t){return u=t,this},this.yoyo=function(t){return s=t,this},this.easing=function(t){return h=t,this},this.interpolation=function(t){return m=t,this},this.chain=function(){return y=arguments,this},this.onStart=function(t){return d=t,this},this.onUpdate=function(t){return g=t,this},this.onComplete=function(t){return _=t,this},this.onStop=function(t){return w=t,this},this.update=function(t){var o,c,w;if(t<p)return!0;v===!1&&(null!==d&&d.call(n),v=!0),c=(t-p)/i,c=c>1?1:c,w=h(c);for(o in a)if(void 0!==e[o]){var b=e[o]||0,O=a[o];O instanceof Array?n[o]=m(O,w):("string"==typeof O&&(O=O.startsWith("+")||O.startsWith("-")?b+parseFloat(O,10):parseFloat(O,10)),"number"==typeof O&&(n[o]=b+(O-b)*w))}if(null!==g&&g.call(n,w),1===c){if(u>0){isFinite(u)&&u--;for(o in r){if("string"==typeof a[o]&&(r[o]=r[o]+parseFloat(a[o],10)),s){var M=r[o];r[o]=a[o],a[o]=M}e[o]=r[o]}return s&&(f=!f),p=t+l,!0}null!==_&&_.call(n);for(var k=0,I=y.length;k<I;k++)y[k].start(p+i);return!1}return!0}},o.Easing={Linear:{None:function(t){return t}},Quadratic:{In:function(t){return t*t},Out:function(t){return t*(2-t)},InOut:function(t){return(t*=2)<1?.5*t*t:-.5*(--t*(t-2)-1)}},Cubic:{In:function(t){return t*t*t},Out:function(t){return--t*t*t+1},InOut:function(t){return(t*=2)<1?.5*t*t*t:.5*((t-=2)*t*t+2)}},Quartic:{In:function(t){return t*t*t*t},Out:function(t){return 1- --t*t*t*t},InOut:function(t){return(t*=2)<1?.5*t*t*t*t:-.5*((t-=2)*t*t*t-2)}},Quintic:{In:function(t){return t*t*t*t*t},Out:function(t){return--t*t*t*t*t+1},InOut:function(t){return(t*=2)<1?.5*t*t*t*t*t:.5*((t-=2)*t*t*t*t+2)}},Sinusoidal:{In:function(t){return 1-Math.cos(t*Math.PI/2)},Out:function(t){return Math.sin(t*Math.PI/2)},InOut:function(t){return.5*(1-Math.cos(Math.PI*t))}},Exponential:{In:function(t){return 0===t?0:Math.pow(1024,t-1)},Out:function(t){return 1===t?1:1-Math.pow(2,-10*t)},InOut:function(t){return 0===t?0:1===t?1:(t*=2)<1?.5*Math.pow(1024,t-1):.5*(-Math.pow(2,-10*(t-1))+2)}},Circular:{In:function(t){return 1-Math.sqrt(1-t*t)},Out:function(t){return Math.sqrt(1- --t*t)},InOut:function(t){return(t*=2)<1?-.5*(Math.sqrt(1-t*t)-1):.5*(Math.sqrt(1-(t-=2)*t)+1)}},Elastic:{In:function(t){var n,e=.1,a=.4;return 0===t?0:1===t?1:(!e||e<1?(e=1,n=a/4):n=a*Math.asin(1/e)/(2*Math.PI),-(e*Math.pow(2,10*(t-=1))*Math.sin((t-n)*(2*Math.PI)/a)))},Out:function(t){var n,e=.1,a=.4;return 0===t?0:1===t?1:(!e||e<1?(e=1,n=a/4):n=a*Math.asin(1/e)/(2*Math.PI),e*Math.pow(2,-10*t)*Math.sin((t-n)*(2*Math.PI)/a)+1)},InOut:function(t){var n,e=.1,a=.4;return 0===t?0:1===t?1:(!e||e<1?(e=1,n=a/4):n=a*Math.asin(1/e)/(2*Math.PI),(t*=2)<1?-.5*(e*Math.pow(2,10*(t-=1))*Math.sin((t-n)*(2*Math.PI)/a)):e*Math.pow(2,-10*(t-=1))*Math.sin((t-n)*(2*Math.PI)/a)*.5+1)}},Back:{In:function(t){var n=1.70158;return t*t*((n+1)*t-n)},Out:function(t){var n=1.70158;return--t*t*((n+1)*t+n)+1},InOut:function(t){var n=2.5949095;return(t*=2)<1?.5*(t*t*((n+1)*t-n)):.5*((t-=2)*t*((n+1)*t+n)+2)}},Bounce:{In:function(t){return 1-o.Easing.Bounce.Out(1-t)},Out:function(t){return t<1/2.75?7.5625*t*t:t<2/2.75?7.5625*(t-=1.5/2.75)*t+.75:t<2.5/2.75?7.5625*(t-=2.25/2.75)*t+.9375:7.5625*(t-=2.625/2.75)*t+.984375},InOut:function(t){return t<.5?.5*o.Easing.Bounce.In(2*t):.5*o.Easing.Bounce.Out(2*t-1)+.5}}},o.Interpolation={Linear:function(t,n){var e=t.length-1,a=e*n,r=Math.floor(a),i=o.Interpolation.Utils.Linear;return n<0?i(t[0],t[1],a):n>1?i(t[e],t[e-1],e-a):i(t[r],t[r+1>e?e:r+1],a-r)},Bezier:function(t,n){for(var e=0,a=t.length-1,r=Math.pow,i=o.Interpolation.Utils.Bernstein,u=0;u<=a;u++)e+=r(1-n,a-u)*r(n,u)*t[u]*i(a,u);return e},CatmullRom:function(t,n){var e=t.length-1,a=e*n,r=Math.floor(a),i=o.Interpolation.Utils.CatmullRom;return t[0]===t[e]?(n<0&&(r=Math.floor(a=e*(1+n))),i(t[(r-1+e)%e],t[r],t[(r+1)%e],t[(r+2)%e],a-r)):n<0?t[0]-(i(t[0],t[0],t[1],t[1],-a)-t[0]):n>1?t[e]-(i(t[e],t[e],t[e-1],t[e-1],a-e)-t[e]):i(t[r?r-1:0],t[r],t[e<r+1?e:r+1],t[e<r+2?e:r+2],a-r)},Utils:{Linear:function(t,n,e){return(n-t)*e+t},Bernstein:function(t,n){var e=o.Interpolation.Utils.Factorial;return e(t)/e(n)/e(t-n)},Factorial:function(){var t=[1];return function(n){var e=1;if(t[n])return t[n];for(var a=n;a>1;a--)e*=a;return t[n]=e,e}}(),CatmullRom:function(t,n,e,a,r){var o=.5*(e-t),i=.5*(a-n),u=r*r,s=r*u;return(2*n-2*e+o+i)*s+(-3*n+3*e-2*o-i)*u+o*r+n}}},function(e){a=[],r=function(){return o}.apply(n,a),!(void 0!==r&&(t.exports=r))}(void 0)}])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("react"), require("react-dom"));
+	else if(typeof define === 'function' && define.amd)
+		define(["react", "react-dom"], factory);
+	else {
+		var a = typeof exports === 'object' ? factory(require("react"), require("react-dom")) : factory(root["react"], root["react-dom"]);
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(2);
+
+	var _utils = __webpack_require__(3);
+
+	var _tween = __webpack_require__(4);
+
+	var _tween2 = _interopRequireDefault(_tween);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var EASING = {
+	  'ease': _tween2.default.Easing.Quadratic.InOut,
+	  'ease-in': _tween2.default.Easing.Cubic.In,
+	  'ease-out': _tween2.default.Easing.Cubic.Out,
+	  'ease-in-out': _tween2.default.Easing.Cubic.InOut,
+	  'linear': _tween2.default.Easing.Linear.None,
+	  'step-start': _tween2.default.Easing.Bounce.In, // not quite the same thing ;)
+	  'step-end': _tween2.default.Easing.Bounce.Out // not quite the same thing ;)
+	};
+
+	var MtSvgLines = function (_React$Component) {
+	  _inherits(MtSvgLines, _React$Component);
+
+	  function MtSvgLines(props) {
+	    _classCallCheck(this, MtSvgLines);
+
+	    var _this = _possibleConstructorReturn(this, (MtSvgLines.__proto__ || Object.getPrototypeOf(MtSvgLines)).call(this, props));
+
+	    _this._onTweenUpdate = function () {
+	      _this._setStrokeDashoffset(_this._pathElems, _this._tweenData);
+	      _this._animate(); // go again..
+	    };
+
+	    _this._onAnimComplete = function () {
+	      _this.props.callback();
+	      _this._animStart = 0;
+	    };
+
+	    _this.state = {
+	      classKey: '', // unique class name for the wrapper, acts as internal "trigger" (re-generated each time anim is to run)
+	      css: '', // generated CSS
+	      tweenElapsed: 0, // tween duration so far (ms)
+	      tweenProgress: 0 // tween completion (pct)
+	    };
+
+	    _this._lastAnimate = '';
+	    _this._lastClassKey = '';
+
+	    _this._animStart = 0; // anim start timestamp
+
+	    _this._pathElems = [];
+	    _this._pathDataFrom = {};
+	    _this._pathDataTo = {};
+	    _this._tweenData = {};
+	    return _this;
+	  }
+
+	  // defaults
+
+
+	  _createClass(MtSvgLines, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._setClassKey(this.props.animate);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this._setClassKey(nextProps.animate);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      // destruct all component-specific props, so '...rest' can be applied to wrapper <span>
+	      // eslint-disable-next-line no-unused-vars
+	      var _props = this.props,
+	          className = _props.className,
+	          animate = _props.animate,
+	          duration = _props.duration,
+	          stagger = _props.stagger,
+	          timing = _props.timing,
+	          playback = _props.playback,
+	          fade = _props.fade,
+	          jsOnly = _props.jsOnly,
+	          children = _props.children,
+	          callback = _props.callback,
+	          rest = _objectWithoutProperties(_props, ['className', 'animate', 'duration', 'stagger', 'timing', 'playback', 'fade', 'jsOnly', 'children', 'callback']);
+
+	      var _state = this.state,
+	          classKey = _state.classKey,
+	          css = _state.css;
+
+	      var isHidden = animate === 'hide';
+
+	      return _react2.default.createElement(
+	        'span',
+	        _extends({
+	          ref: function ref(c) {
+	            return _this2._svgWrapper = c;
+	          },
+	          className: className + ' ' + classKey,
+	          style: { opacity: isHidden ? 0.01 : 1 }
+	        }, rest),
+	        _react2.default.createElement(
+	          'style',
+	          null,
+	          css
+	        ),
+	        children
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this._animate();
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      this._animate();
+	    }
+
+	    // ------------------------------------------------------
+
+	    /*
+	     * Main animate handler, called after each render update
+	     */
+
+	  }, {
+	    key: '_animate',
+	    value: function _animate() {
+	      var _this3 = this;
+
+	      if (typeof window === 'undefined') {
+	        return;
+	      }
+
+	      var _props2 = this.props,
+	          animate = _props2.animate,
+	          duration = _props2.duration,
+	          stagger = _props2.stagger,
+	          timing = _props2.timing,
+	          playback = _props2.playback,
+	          jsOnly = _props2.jsOnly;
+	      var classKey = this.state.classKey;
+
+
+	      var isStartNewAnim = animate !== false && classKey !== this._lastClassKey;
+	      var isAnimJS = (0, _utils.isMsBrowser)() || jsOnly;
+
+	      // >>> STARTING NEW ANIMATION...
+	      if (isStartNewAnim) {
+
+	        // set flags
+	        this._animStart = Date.now();
+	        this._lastClassKey = classKey;
+
+	        // parse out vars common for both modes
+	        var startDelay = typeof animate === 'number' ? animate : 0; // if numeric, treat as delay (ms)
+	        var numOfRepeats = parseInt(playback, 10) || 0;
+
+	        /* ----- JS MODE ----- */
+	        if (isAnimJS) {
+
+	          // parse props for use with Tween.js
+	          if (numOfRepeats > 0) {
+	            numOfRepeats = numOfRepeats - 1;
+	          }
+	          if ((0, _utils.contains)(playback, 'infinite')) {
+	            numOfRepeats = Infinity;
+	          }
+	          var isYoYo = (0, _utils.contains)(playback, 'alternate');
+
+	          // acquire path elems and generate to/from data sets
+	          this._pathElems = this._selectPathElems();
+	          var pathData = this._getPathData(this._pathElems);
+	          this._pathDataFrom = pathData.from;
+	          this._pathDataTo = pathData.to;
+
+	          // TODO: if ( contains( playback, 'reverse' ) ) { ... };
+
+	          // init tweener object
+	          this._tweenData = _extends({}, this._pathDataFrom);
+
+	          // set paths' offsets to start positions
+	          this._setStrokeDasharray(this._pathElems, this._pathDataFrom);
+	          this._setStrokeDashoffset(this._pathElems, this._tweenData);
+
+	          // init the tweener..
+	          var tween = new _tween2.default.Tween(this._tweenData).to(this._pathDataTo, duration).easing(EASING[timing]).repeat(numOfRepeats).yoyo(isYoYo).onUpdate(this._onTweenUpdate).onComplete(this._onAnimComplete);
+
+	          // kick off JS tweening..
+	          var t = setTimeout(function () {
+	            tween.start();
+	            _tween2.default.update();
+	            clearTimeout(t);
+	          }, Math.max(1, startDelay));
+
+	          /* ----- CSS MODE ----- */
+	        } else {
+
+	          var css = '';
+
+	          // 1) determine number of path elems in svg
+	          var pathLenghts = this._getPathLengths();
+	          var pathQty = pathLenghts.length || 1;
+
+	          // 2) calc all timing values
+	          var staggerMult = (0, _utils.clamp)(stagger, 0, 100) / 100; // convert percentage to 0-1
+	          var pathStaggerDelay = stagger > 0 ? duration / pathQty * staggerMult : 0;
+	          var pathDrawDuration = stagger > 0 ? duration - pathStaggerDelay * (pathQty - 1) * (2 - staggerMult) : duration;
+
+	          // 3) concat generated CSS, one path at a time..
+	          pathLenghts.forEach(function (length, index) {
+	            css += _this3._getPathCSS(index, length, startDelay, pathStaggerDelay, pathDrawDuration);
+	          });
+
+	          // set up on-complete timer
+	          var _t = setTimeout(function () {
+	            clearTimeout(_t);
+	            _this3._onAnimComplete();
+	          }, startDelay + duration * numOfRepeats);
+
+	          // set state (re-render)
+	          this.setState({ css: css });
+	        }
+
+	        // >>> ONGOING ANIMATION...
+	      } else if (this._animStart) {
+
+	        /* ----- JS MODE ----- */
+	        if (isAnimJS) {
+	          requestAnimationFrame(_tween2.default.update);
+
+	          /* ----- CSS MODE ----- */
+	        } else {
+	            // NOTE: nothing to do, browser does its thing...
+	          }
+	      }
+	    }
+
+	    /*
+	     * On each Tween update, set dash offsets to newly tweened values
+	     */
+
+
+	    /*
+	     * When animation completes, run callback (if any), clear start timestamp
+	     */
+
+	  }, {
+	    key: '_selectPathElems',
+
+
+	    /*
+	     * Acquire selection of SVG 'path' elems contained within
+	     */
+	    value: function _selectPathElems() {
+	      var svgEl = (0, _reactDom.findDOMNode)(this._svgWrapper).getElementsByTagName('svg')[0];
+	      return svgEl ? svgEl.querySelectorAll('path') : [];
+	    }
+
+	    /*
+	     * Generate an object containing 'from' and 'to' sub-objects
+	     * Each object contains same set of indexed keys, per the path selection
+	     * The 'from' object values are the paths' lengths
+	     * The 'to' object values are 0 (unless 'skip' attr is present, then equal path's length)
+	     */
+
+	  }, {
+	    key: '_getPathData',
+	    value: function _getPathData(pathElems) {
+	      var _this4 = this;
+
+	      var pathData = { from: {}, to: {} };
+
+	      [].forEach.call(pathElems, function (pathEl, i) {
+	        if (!_this4._hasSkipAttr(pathEl.attributes)) {
+	          var pathLengh = (0, _utils.trimFloat)(pathEl.getTotalLength());
+	          pathData.to[i] = 0;
+	          pathData.from[i] = pathLengh;
+	        }
+	      });
+
+	      return pathData;
+	    }
+
+	    /*
+	     * Check path's attributes for data-mt="skip"
+	     */
+
+	  }, {
+	    key: '_hasSkipAttr',
+	    value: function _hasSkipAttr(attributes) {
+	      var result = false;
+
+	      // path.attributes is an obj with indexed keys, so we must iterate over them
+	      // { '0': { name: 'd', value: 'M37.063' }, '1': { name: 'data-mt', value: 'skip' }, ... }
+	      for (var key in attributes) {
+	        var _attributes$key = attributes[key],
+	            name = _attributes$key.name,
+	            value = _attributes$key.value;
+
+	        if (!result && name === 'data-mt' && value === 'skip') {
+	          result = true;
+	          break;
+	        }
+	      }
+
+	      return result;
+	    }
+
+	    /*
+	     * Set style.strokeDasharray on all paths in selection, from the provided key-val object
+	     */
+
+	  }, {
+	    key: '_setStrokeDasharray',
+	    value: function _setStrokeDasharray(pathElems, pathData) {
+	      [].forEach.call(pathElems, function (pathEl, i) {
+	        if (pathData[i]) {
+	          pathEl.style.strokeDasharray = pathData[i];
+	        }
+	      });
+	    }
+
+	    /*
+	     * Set style.strokeDashoffset on all paths in selection, from the provided key-val object
+	     */
+
+	  }, {
+	    key: '_setStrokeDashoffset',
+	    value: function _setStrokeDashoffset(pathElems, pathData) {
+	      [].forEach.call(pathElems, function (pathEl, i) {
+	        if (pathData[i]) {
+	          pathEl.style.strokeDashoffset = pathData[i];
+	        }
+	      });
+	    }
+
+	    /*
+	     * Return an array containing lengths of all path elems inside the SVG
+	     */
+
+	  }, {
+	    key: '_getPathLengths',
+	    value: function _getPathLengths() {
+	      var _this5 = this;
+
+	      var pathElems = this._selectPathElems();
+	      return [].map.call(pathElems, function (pathEl) {
+	        return _this5._hasSkipAttr(pathEl.attributes) ? 0 : (0, _utils.trimFloat)(pathEl.getTotalLength());
+	      });
+	    }
+
+	    /*
+	     * Return CSS for a single path elem (using classKey and path index as the CSS selector)
+	     */
+
+	  }, {
+	    key: '_getPathCSS',
+	    value: function _getPathCSS(index, length, startDelay, staggerDelay, duration) {
+	      var classKey = this.state.classKey;
+	      var _props3 = this.props,
+	          timing = _props3.timing,
+	          playback = _props3.playback,
+	          fade = _props3.fade;
+
+
+	      var keysId = classKey + '-' + (index + 1);
+	      var totalDelay = length ? (0, _utils.trimFloat)((startDelay + staggerDelay * index) / 1000) : 0;
+	      var startOpacity = fade ? 0.01 : 1;
+
+	      duration = duration ? (0, _utils.trimFloat)(duration / 1000) : 0;
+
+	      return '\n      @-webkit-keyframes ' + keysId + ' {\n        0%   { stroke-dashoffset: ' + length + '; opacity: ' + startOpacity + '; }\n        100% { stroke-dashoffset: 0; opacity: 1; }\n      }\n      @keyframes ' + keysId + ' {\n        0%   { stroke-dashoffset: ' + length + '; opacity: ' + startOpacity + '; }\n        100% { stroke-dashoffset: 0; opacity: 1; }\n      }\n      .' + classKey + ' path:nth-of-type( ' + (index + 1) + ' ) {\n        opacity:                 0.01;\n        stroke-dasharray:        ' + length + ';\n        stroke-dashoffset:       ' + length + ';\n        -webkit-animation:       ' + keysId + ' ' + duration + 's ' + timing + ' ' + playback + ';\n        animation:               ' + keysId + ' ' + duration + 's ' + timing + ' ' + playback + ';\n        -webkit-animation-delay: ' + totalDelay + 's;\n        animation-delay:         ' + totalDelay + 's;\n      }\n    ';
+	    }
+
+	    /*
+	     * Check if animate flag is new, and if true, set a new classKey into state (trigger anim)
+	     */
+
+	  }, {
+	    key: '_setClassKey',
+	    value: function _setClassKey(animate) {
+	      if (animate !== this._lastAnimate) {
+	        this._lastAnimate = animate;
+	        this.setState({ classKey: 'mt-' + (0, _utils.shortUID)() });
+	      }
+	    }
+	  }]);
+
+	  return MtSvgLines;
+	}(_react2.default.Component);
+
+	MtSvgLines.propTypes = {
+	  className: _react.PropTypes.string, // custom CSS class (applied to svg elem)
+	  animate: _react.PropTypes.oneOfType([// external animation trigger
+	  _react.PropTypes.string, // - pass a unique string or true to (re)start animation
+	  _react.PropTypes.number, // - pass a number to specify delay before the animation begins (ms)
+	  _react.PropTypes.bool // - pass false (or omit) to draw static SVG (no animation)
+	  ]),
+	  duration: _react.PropTypes.number, // total anim duration (ms)
+	  stagger: _react.PropTypes.number, // delay between start times of each path (percentage)
+	  timing: _react2.default.PropTypes.oneOf([// easing type
+	  'ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear', 'step-start', 'step-end']),
+	  playback: _react.PropTypes.string, // iteration-count || direction || fill-mode (perhaps even play-state)
+	  fade: _react.PropTypes.bool, // apply a fade-in to each path
+	  callback: _react.PropTypes.func, // callback fn to run when when anim completes
+	  jsOnly: _react.PropTypes.bool // apply JS animation, regardless of browser
+	};
+	MtSvgLines.defaultProps = {
+	  className: 'mt-svg',
+	  animate: false,
+	  duration: 1000,
+	  stagger: 0,
+	  timing: 'ease',
+	  playback: 'forwards',
+	  fade: false,
+	  callback: function callback() {},
+	  jsOnly: false
+	};
+	exports.default = MtSvgLines;
+
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.clamp = clamp;
+	exports.trimFloat = trimFloat;
+	exports.shortUID = shortUID;
+	exports.isMsBrowser = isMsBrowser;
+	exports.contains = contains;
+	/*
+	 * Clamp a number within the specified min-max range
+	 */
+	function clamp(value, min, max) {
+	  return Math.min(Math.max(value, min), max);
+	}
+
+	/*
+	 * Round a float to 2 decimal places
+	 */
+	function trimFloat(value) {
+	  return Math.round(value * 100) / 100;
+	}
+
+	/*
+	 * Generate a short UID (4 chars)
+	 * http://stackoverflow.com/questions/6248666/how-to-generate-short-uid-like-ax4j9z-in-js
+	 */
+	function shortUID() {
+	  return ('0000' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);
+	}
+
+	/*
+	 * Determine if Microsoft browser (IE8+ or Edge)
+	 */
+	function isMsBrowser() {
+	  return Boolean(document.documentMode || /Edge/.test(navigator.userAgent));
+	}
+
+	/*
+	 * Determine if value is present in array (or string), return bool
+	 */
+	function contains(arrayOrString, value) {
+	  return arrayOrString.indexOf(value) > -1;
+	}
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/**
+	 * Tween.js - Licensed under the MIT license
+	 * https://github.com/tweenjs/tween.js
+	 * ----------------------------------------------
+	 *
+	 * See https://github.com/tweenjs/tween.js/graphs/contributors for the full list of contributors.
+	 * Thank you all, you're awesome!
+	 */
+
+	var TWEEN = TWEEN || function () {
+
+		var _tweens = [];
+
+		return {
+
+			getAll: function getAll() {
+
+				return _tweens;
+			},
+
+			removeAll: function removeAll() {
+
+				_tweens = [];
+			},
+
+			add: function add(tween) {
+
+				_tweens.push(tween);
+			},
+
+			remove: function remove(tween) {
+
+				var i = _tweens.indexOf(tween);
+
+				if (i !== -1) {
+					_tweens.splice(i, 1);
+				}
+			},
+
+			update: function update(time, preserve) {
+
+				if (_tweens.length === 0) {
+					return false;
+				}
+
+				var i = 0;
+
+				time = time !== undefined ? time : TWEEN.now();
+
+				while (i < _tweens.length) {
+
+					if (_tweens[i].update(time) || preserve) {
+						i++;
+					} else {
+						_tweens.splice(i, 1);
+					}
+				}
+
+				return true;
+			}
+		};
+	}();
+
+	// Include a performance.now polyfill.
+	// In node.js, use process.hrtime.
+	if (typeof window === 'undefined' && typeof process !== 'undefined') {
+		TWEEN.now = function () {
+			var time = process.hrtime();
+
+			// Convert [seconds, nanoseconds] to milliseconds.
+			return time[0] * 1000 + time[1] / 1000000;
+		};
+	}
+	// In a browser, use window.performance.now if it is available.
+	else if (typeof window !== 'undefined' && window.performance !== undefined && window.performance.now !== undefined) {
+			// This must be bound, because directly assigning this function
+			// leads to an invocation exception in Chrome.
+			TWEEN.now = window.performance.now.bind(window.performance);
+		}
+		// Use Date.now if it is available.
+		else if (Date.now !== undefined) {
+				TWEEN.now = Date.now;
+			}
+			// Otherwise, use 'new Date().getTime()'.
+			else {
+					TWEEN.now = function () {
+						return new Date().getTime();
+					};
+				}
+
+	TWEEN.Tween = function (object) {
+
+		var _object = object;
+		var _valuesStart = {};
+		var _valuesEnd = {};
+		var _valuesStartRepeat = {};
+		var _duration = 1000;
+		var _repeat = 0;
+		var _repeatDelayTime;
+		var _yoyo = false;
+		var _isPlaying = false;
+		var _reversed = false;
+		var _delayTime = 0;
+		var _startTime = null;
+		var _easingFunction = TWEEN.Easing.Linear.None;
+		var _interpolationFunction = TWEEN.Interpolation.Linear;
+		var _chainedTweens = [];
+		var _onStartCallback = null;
+		var _onStartCallbackFired = false;
+		var _onUpdateCallback = null;
+		var _onCompleteCallback = null;
+		var _onStopCallback = null;
+
+		this.to = function (properties, duration) {
+
+			_valuesEnd = properties;
+
+			if (duration !== undefined) {
+				_duration = duration;
+			}
+
+			return this;
+		};
+
+		this.start = function (time) {
+
+			TWEEN.add(this);
+
+			_isPlaying = true;
+
+			_onStartCallbackFired = false;
+
+			_startTime = time !== undefined ? time : TWEEN.now();
+			_startTime += _delayTime;
+
+			for (var property in _valuesEnd) {
+
+				// Check if an Array was provided as property value
+				if (_valuesEnd[property] instanceof Array) {
+
+					if (_valuesEnd[property].length === 0) {
+						continue;
+					}
+
+					// Create a local copy of the Array with the start value at the front
+					_valuesEnd[property] = [_object[property]].concat(_valuesEnd[property]);
+				}
+
+				// If `to()` specifies a property that doesn't exist in the source object,
+				// we should not set that property in the object
+				if (_object[property] === undefined) {
+					continue;
+				}
+
+				// Save the starting value.
+				_valuesStart[property] = _object[property];
+
+				if (_valuesStart[property] instanceof Array === false) {
+					_valuesStart[property] *= 1.0; // Ensures we're using numbers, not strings
+				}
+
+				_valuesStartRepeat[property] = _valuesStart[property] || 0;
+			}
+
+			return this;
+		};
+
+		this.stop = function () {
+
+			if (!_isPlaying) {
+				return this;
+			}
+
+			TWEEN.remove(this);
+			_isPlaying = false;
+
+			if (_onStopCallback !== null) {
+				_onStopCallback.call(_object, _object);
+			}
+
+			this.stopChainedTweens();
+			return this;
+		};
+
+		this.end = function () {
+
+			this.update(_startTime + _duration);
+			return this;
+		};
+
+		this.stopChainedTweens = function () {
+
+			for (var i = 0, numChainedTweens = _chainedTweens.length; i < numChainedTweens; i++) {
+				_chainedTweens[i].stop();
+			}
+		};
+
+		this.delay = function (amount) {
+
+			_delayTime = amount;
+			return this;
+		};
+
+		this.repeat = function (times) {
+
+			_repeat = times;
+			return this;
+		};
+
+		this.repeatDelay = function (amount) {
+
+			_repeatDelayTime = amount;
+			return this;
+		};
+
+		this.yoyo = function (yoyo) {
+
+			_yoyo = yoyo;
+			return this;
+		};
+
+		this.easing = function (easing) {
+
+			_easingFunction = easing;
+			return this;
+		};
+
+		this.interpolation = function (interpolation) {
+
+			_interpolationFunction = interpolation;
+			return this;
+		};
+
+		this.chain = function () {
+
+			_chainedTweens = arguments;
+			return this;
+		};
+
+		this.onStart = function (callback) {
+
+			_onStartCallback = callback;
+			return this;
+		};
+
+		this.onUpdate = function (callback) {
+
+			_onUpdateCallback = callback;
+			return this;
+		};
+
+		this.onComplete = function (callback) {
+
+			_onCompleteCallback = callback;
+			return this;
+		};
+
+		this.onStop = function (callback) {
+
+			_onStopCallback = callback;
+			return this;
+		};
+
+		this.update = function (time) {
+
+			var property;
+			var elapsed;
+			var value;
+
+			if (time < _startTime) {
+				return true;
+			}
+
+			if (_onStartCallbackFired === false) {
+
+				if (_onStartCallback !== null) {
+					_onStartCallback.call(_object, _object);
+				}
+
+				_onStartCallbackFired = true;
+			}
+
+			elapsed = (time - _startTime) / _duration;
+			elapsed = elapsed > 1 ? 1 : elapsed;
+
+			value = _easingFunction(elapsed);
+
+			for (property in _valuesEnd) {
+
+				// Don't update properties that do not exist in the source object
+				if (_valuesStart[property] === undefined) {
+					continue;
+				}
+
+				var start = _valuesStart[property] || 0;
+				var end = _valuesEnd[property];
+
+				if (end instanceof Array) {
+
+					_object[property] = _interpolationFunction(end, value);
+				} else {
+
+					// Parses relative end values with start as base (e.g.: +10, -3)
+					if (typeof end === 'string') {
+
+						if (end.charAt(0) === '+' || end.charAt(0) === '-') {
+							end = start + parseFloat(end);
+						} else {
+							end = parseFloat(end);
+						}
+					}
+
+					// Protect against non numeric properties.
+					if (typeof end === 'number') {
+						_object[property] = start + (end - start) * value;
+					}
+				}
+			}
+
+			if (_onUpdateCallback !== null) {
+				_onUpdateCallback.call(_object, value);
+			}
+
+			if (elapsed === 1) {
+
+				if (_repeat > 0) {
+
+					if (isFinite(_repeat)) {
+						_repeat--;
+					}
+
+					// Reassign starting values, restart by making startTime = now
+					for (property in _valuesStartRepeat) {
+
+						if (typeof _valuesEnd[property] === 'string') {
+							_valuesStartRepeat[property] = _valuesStartRepeat[property] + parseFloat(_valuesEnd[property]);
+						}
+
+						if (_yoyo) {
+							var tmp = _valuesStartRepeat[property];
+
+							_valuesStartRepeat[property] = _valuesEnd[property];
+							_valuesEnd[property] = tmp;
+						}
+
+						_valuesStart[property] = _valuesStartRepeat[property];
+					}
+
+					if (_yoyo) {
+						_reversed = !_reversed;
+					}
+
+					if (_repeatDelayTime !== undefined) {
+						_startTime = time + _repeatDelayTime;
+					} else {
+						_startTime = time + _delayTime;
+					}
+
+					return true;
+				} else {
+
+					if (_onCompleteCallback !== null) {
+
+						_onCompleteCallback.call(_object, _object);
+					}
+
+					for (var i = 0, numChainedTweens = _chainedTweens.length; i < numChainedTweens; i++) {
+						// Make the chained tweens start exactly at the time they should,
+						// even if the `update()` method was called way past the duration of the tween
+						_chainedTweens[i].start(_startTime + _duration);
+					}
+
+					return false;
+				}
+			}
+
+			return true;
+		};
+	};
+
+	TWEEN.Easing = {
+
+		Linear: {
+
+			None: function None(k) {
+
+				return k;
+			}
+
+		},
+
+		Quadratic: {
+
+			In: function In(k) {
+
+				return k * k;
+			},
+
+			Out: function Out(k) {
+
+				return k * (2 - k);
+			},
+
+			InOut: function InOut(k) {
+
+				if ((k *= 2) < 1) {
+					return 0.5 * k * k;
+				}
+
+				return -0.5 * (--k * (k - 2) - 1);
+			}
+
+		},
+
+		Cubic: {
+
+			In: function In(k) {
+
+				return k * k * k;
+			},
+
+			Out: function Out(k) {
+
+				return --k * k * k + 1;
+			},
+
+			InOut: function InOut(k) {
+
+				if ((k *= 2) < 1) {
+					return 0.5 * k * k * k;
+				}
+
+				return 0.5 * ((k -= 2) * k * k + 2);
+			}
+
+		},
+
+		Quartic: {
+
+			In: function In(k) {
+
+				return k * k * k * k;
+			},
+
+			Out: function Out(k) {
+
+				return 1 - --k * k * k * k;
+			},
+
+			InOut: function InOut(k) {
+
+				if ((k *= 2) < 1) {
+					return 0.5 * k * k * k * k;
+				}
+
+				return -0.5 * ((k -= 2) * k * k * k - 2);
+			}
+
+		},
+
+		Quintic: {
+
+			In: function In(k) {
+
+				return k * k * k * k * k;
+			},
+
+			Out: function Out(k) {
+
+				return --k * k * k * k * k + 1;
+			},
+
+			InOut: function InOut(k) {
+
+				if ((k *= 2) < 1) {
+					return 0.5 * k * k * k * k * k;
+				}
+
+				return 0.5 * ((k -= 2) * k * k * k * k + 2);
+			}
+
+		},
+
+		Sinusoidal: {
+
+			In: function In(k) {
+
+				return 1 - Math.cos(k * Math.PI / 2);
+			},
+
+			Out: function Out(k) {
+
+				return Math.sin(k * Math.PI / 2);
+			},
+
+			InOut: function InOut(k) {
+
+				return 0.5 * (1 - Math.cos(Math.PI * k));
+			}
+
+		},
+
+		Exponential: {
+
+			In: function In(k) {
+
+				return k === 0 ? 0 : Math.pow(1024, k - 1);
+			},
+
+			Out: function Out(k) {
+
+				return k === 1 ? 1 : 1 - Math.pow(2, -10 * k);
+			},
+
+			InOut: function InOut(k) {
+
+				if (k === 0) {
+					return 0;
+				}
+
+				if (k === 1) {
+					return 1;
+				}
+
+				if ((k *= 2) < 1) {
+					return 0.5 * Math.pow(1024, k - 1);
+				}
+
+				return 0.5 * (-Math.pow(2, -10 * (k - 1)) + 2);
+			}
+
+		},
+
+		Circular: {
+
+			In: function In(k) {
+
+				return 1 - Math.sqrt(1 - k * k);
+			},
+
+			Out: function Out(k) {
+
+				return Math.sqrt(1 - --k * k);
+			},
+
+			InOut: function InOut(k) {
+
+				if ((k *= 2) < 1) {
+					return -0.5 * (Math.sqrt(1 - k * k) - 1);
+				}
+
+				return 0.5 * (Math.sqrt(1 - (k -= 2) * k) + 1);
+			}
+
+		},
+
+		Elastic: {
+
+			In: function In(k) {
+
+				if (k === 0) {
+					return 0;
+				}
+
+				if (k === 1) {
+					return 1;
+				}
+
+				return -Math.pow(2, 10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI);
+			},
+
+			Out: function Out(k) {
+
+				if (k === 0) {
+					return 0;
+				}
+
+				if (k === 1) {
+					return 1;
+				}
+
+				return Math.pow(2, -10 * k) * Math.sin((k - 0.1) * 5 * Math.PI) + 1;
+			},
+
+			InOut: function InOut(k) {
+
+				if (k === 0) {
+					return 0;
+				}
+
+				if (k === 1) {
+					return 1;
+				}
+
+				k *= 2;
+
+				if (k < 1) {
+					return -0.5 * Math.pow(2, 10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI);
+				}
+
+				return 0.5 * Math.pow(2, -10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI) + 1;
+			}
+
+		},
+
+		Back: {
+
+			In: function In(k) {
+
+				var s = 1.70158;
+
+				return k * k * ((s + 1) * k - s);
+			},
+
+			Out: function Out(k) {
+
+				var s = 1.70158;
+
+				return --k * k * ((s + 1) * k + s) + 1;
+			},
+
+			InOut: function InOut(k) {
+
+				var s = 1.70158 * 1.525;
+
+				if ((k *= 2) < 1) {
+					return 0.5 * (k * k * ((s + 1) * k - s));
+				}
+
+				return 0.5 * ((k -= 2) * k * ((s + 1) * k + s) + 2);
+			}
+
+		},
+
+		Bounce: {
+
+			In: function In(k) {
+
+				return 1 - TWEEN.Easing.Bounce.Out(1 - k);
+			},
+
+			Out: function Out(k) {
+
+				if (k < 1 / 2.75) {
+					return 7.5625 * k * k;
+				} else if (k < 2 / 2.75) {
+					return 7.5625 * (k -= 1.5 / 2.75) * k + 0.75;
+				} else if (k < 2.5 / 2.75) {
+					return 7.5625 * (k -= 2.25 / 2.75) * k + 0.9375;
+				} else {
+					return 7.5625 * (k -= 2.625 / 2.75) * k + 0.984375;
+				}
+			},
+
+			InOut: function InOut(k) {
+
+				if (k < 0.5) {
+					return TWEEN.Easing.Bounce.In(k * 2) * 0.5;
+				}
+
+				return TWEEN.Easing.Bounce.Out(k * 2 - 1) * 0.5 + 0.5;
+			}
+
+		}
+
+	};
+
+	TWEEN.Interpolation = {
+
+		Linear: function Linear(v, k) {
+
+			var m = v.length - 1;
+			var f = m * k;
+			var i = Math.floor(f);
+			var fn = TWEEN.Interpolation.Utils.Linear;
+
+			if (k < 0) {
+				return fn(v[0], v[1], f);
+			}
+
+			if (k > 1) {
+				return fn(v[m], v[m - 1], m - f);
+			}
+
+			return fn(v[i], v[i + 1 > m ? m : i + 1], f - i);
+		},
+
+		Bezier: function Bezier(v, k) {
+
+			var b = 0;
+			var n = v.length - 1;
+			var pw = Math.pow;
+			var bn = TWEEN.Interpolation.Utils.Bernstein;
+
+			for (var i = 0; i <= n; i++) {
+				b += pw(1 - k, n - i) * pw(k, i) * v[i] * bn(n, i);
+			}
+
+			return b;
+		},
+
+		CatmullRom: function CatmullRom(v, k) {
+
+			var m = v.length - 1;
+			var f = m * k;
+			var i = Math.floor(f);
+			var fn = TWEEN.Interpolation.Utils.CatmullRom;
+
+			if (v[0] === v[m]) {
+
+				if (k < 0) {
+					i = Math.floor(f = m * (1 + k));
+				}
+
+				return fn(v[(i - 1 + m) % m], v[i], v[(i + 1) % m], v[(i + 2) % m], f - i);
+			} else {
+
+				if (k < 0) {
+					return v[0] - (fn(v[0], v[0], v[1], v[1], -f) - v[0]);
+				}
+
+				if (k > 1) {
+					return v[m] - (fn(v[m], v[m], v[m - 1], v[m - 1], f - m) - v[m]);
+				}
+
+				return fn(v[i ? i - 1 : 0], v[i], v[m < i + 1 ? m : i + 1], v[m < i + 2 ? m : i + 2], f - i);
+			}
+		},
+
+		Utils: {
+
+			Linear: function Linear(p0, p1, t) {
+
+				return (p1 - p0) * t + p0;
+			},
+
+			Bernstein: function Bernstein(n, i) {
+
+				var fc = TWEEN.Interpolation.Utils.Factorial;
+
+				return fc(n) / fc(i) / fc(n - i);
+			},
+
+			Factorial: function () {
+
+				var a = [1];
+
+				return function (n) {
+
+					var s = 1;
+
+					if (a[n]) {
+						return a[n];
+					}
+
+					for (var i = n; i > 1; i--) {
+						s *= i;
+					}
+
+					a[n] = s;
+					return s;
+				};
+			}(),
+
+			CatmullRom: function CatmullRom(p0, p1, p2, p3, t) {
+
+				var v0 = (p2 - p0) * 0.5;
+				var v1 = (p3 - p1) * 0.5;
+				var t2 = t * t;
+				var t3 = t * t2;
+
+				return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
+			}
+
+		}
+
+	};
+
+	// UMD (Universal Module Definition)
+	(function (root) {
+
+		if (true) {
+
+			// AMD
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return TWEEN;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof module !== 'undefined' && (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
+
+			// Node.js
+			module.exports = TWEEN;
+		} else if (root !== undefined) {
+
+			// Global variable
+			root.TWEEN = TWEEN;
+		}
+	})(undefined);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	// shim for using process in browser
+	var process = module.exports = {};
+
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+
+	function defaultSetTimout() {
+	    throw new Error('setTimeout has not been defined');
+	}
+	function defaultClearTimeout() {
+	    throw new Error('clearTimeout has not been defined');
+	}
+	(function () {
+	    try {
+	        if (typeof setTimeout === 'function') {
+	            cachedSetTimeout = setTimeout;
+	        } else {
+	            cachedSetTimeout = defaultSetTimout;
+	        }
+	    } catch (e) {
+	        cachedSetTimeout = defaultSetTimout;
+	    }
+	    try {
+	        if (typeof clearTimeout === 'function') {
+	            cachedClearTimeout = clearTimeout;
+	        } else {
+	            cachedClearTimeout = defaultClearTimeout;
+	        }
+	    } catch (e) {
+	        cachedClearTimeout = defaultClearTimeout;
+	    }
+	})();
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
+	        return setTimeout(fun, 0);
+	    }
+	    // if setTimeout wasn't available but was latter defined
+	    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+	        cachedSetTimeout = setTimeout;
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    // if clearTimeout wasn't available but was latter defined
+	    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+	        cachedClearTimeout = clearTimeout;
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+	}
+	var queue = [];
+	var draining = false;
+	var currentQueue;
+	var queueIndex = -1;
+
+	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
+	    draining = false;
+	    if (currentQueue.length) {
+	        queue = currentQueue.concat(queue);
+	    } else {
+	        queueIndex = -1;
+	    }
+	    if (queue.length) {
+	        drainQueue();
+	    }
+	}
+
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    var timeout = runTimeout(cleanUpNextTick);
+	    draining = true;
+
+	    var len = queue.length;
+	    while (len) {
+	        currentQueue = queue;
+	        queue = [];
+	        while (++queueIndex < len) {
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
+	        }
+	        queueIndex = -1;
+	        len = queue.length;
+	    }
+	    currentQueue = null;
+	    draining = false;
+	    runClearTimeout(timeout);
+	}
+
+	process.nextTick = function (fun) {
+	    var args = new Array(arguments.length - 1);
+	    if (arguments.length > 1) {
+	        for (var i = 1; i < arguments.length; i++) {
+	            args[i - 1] = arguments[i];
+	        }
+	    }
+	    queue.push(new Item(fun, args));
+	    if (queue.length === 1 && !draining) {
+	        runTimeout(drainQueue);
+	    }
+	};
+
+	// v8 likes predictible objects
+	function Item(fun, array) {
+	    this.fun = fun;
+	    this.array = array;
+	}
+	Item.prototype.run = function () {
+	    this.fun.apply(null, this.array);
+	};
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+
+	function noop() {}
+
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+
+	process.cwd = function () {
+	    return '/';
+	};
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function () {
+	    return 0;
+	};
+
+/***/ }
+/******/ ])
+});
+;

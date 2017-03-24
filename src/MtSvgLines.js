@@ -124,6 +124,8 @@ export default class MtSvgLines extends React.Component {
    * Main animate handler, called after each render update
    */
   _animate() {
+    if (typeof window === 'undefined') { return; }
+
     const { animate, duration, stagger, timing, playback, jsOnly }  = this.props;
     const { classKey } = this.state;
 
@@ -190,7 +192,7 @@ export default class MtSvgLines extends React.Component {
         const pathQty     = pathLenghts.length || 1;
 
         // 2) calc all timing values
-        const staggerMult      = clamp( stagger, 0, 100 ) / 100;                        // convert percentage to 0-1
+        const staggerMult      = clamp( stagger, 0, 100 ) / 100;        // convert pct to 0-1
         const pathStaggerDelay = ( stagger > 0 ? duration/pathQty * staggerMult : 0 );
         const pathDrawDuration = ( stagger > 0 ? duration - (( pathStaggerDelay * ( pathQty - 1 ) ) * ( 2 - staggerMult )) : duration );
 

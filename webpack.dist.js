@@ -21,10 +21,10 @@ module.exports = {
     'react-dom': 'react-dom'
   },
 
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      minimize:   true,
-      compressor: { warnings: false }
-    })
-  ]
+  // plugins: [
+  //   new webpack.optimize.UglifyJsPlugin({
+  //     minimize:   true,
+  //     compressor: { warnings: false }
+  //   })
+  // ]
 };
