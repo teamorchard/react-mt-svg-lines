@@ -1,38 +1,35 @@
-import React from 'react';
+import React from 'react'
 
-import MtSvgLines from '../../MtSvgLines';
-// import MtSvgLines from '../../../dist/';  // NOTE: uncomment to test built lib
+import MtSvgLines from '../../MtSvgLines'
+// import MtSvgLines from '../../../dist/'  // NOTE: uncomment to test built lib
 
-import SvgCheckmark from '../components/SvgCheckmark';
-import SvgSignature from '../components/SvgSignature';
-import SvgChart from '../components/SvgChart';
-import SvgSpinner from '../components/SvgSpinner';
+import SvgCheckmark from '../components/SvgCheckmark'
+import SvgSignature from '../components/SvgSignature'
+import SvgChart from '../components/SvgChart'
+import SvgSpinner from '../components/SvgSpinner'
 
-import { isMsBrowser } from '../../utils.js';
-
+import { isMsBrowser } from '../../utils.js'
 
 export default class DemoPage extends React.Component {
 
-  constructor( props ) {
-    super( props );
+  constructor (props) {
+    super(props)
 
     this.state = {
-      triggerCheckAnim:     0,
-      triggerSigAnim:       1000,
-      triggerChartAnim:     3000,
-      triggerSpinnerAnim:   6000,
-      jsOnly:               false,
-      isIE:                 true
-    };
+      triggerCheckAnim: 0,
+      triggerSigAnim: 1000,
+      triggerChartAnim: 3000,
+      triggerSpinnerAnim: 6000,
+      jsOnly: false,
+      isIE: true
+    }
   }
 
-
-  componentDidMount() {
-    this.setState( { isIE: isMsBrowser() } );
+  componentDidMount () {
+    this.setState({ isIE: isMsBrowser() })
   }
 
-
-  render() {
+  render () {
     const {
       triggerCheckAnim,
       triggerSigAnim,
@@ -40,10 +37,10 @@ export default class DemoPage extends React.Component {
       triggerSpinnerAnim,
       jsOnly,
       isIE
-    } = this.state;
+    } = this.state
 
     return (
-      <div ref={ c => this._el = c } style={ styles.wrapper }>
+      <div ref={ c => { this._el = c } } style={ styles.wrapper }>
 
         <a href="https://github.com/moarwick/react-mt-svg-lines" style={ styles.gitHubLink }>
           { this._renderGithubLogo() }
@@ -66,14 +63,14 @@ export default class DemoPage extends React.Component {
             </MtSvgLines>
 
             <div style={ styles.info }>
-              { this._renderTrigger( 'triggerCheckAnim') }
+              { this._renderTrigger('triggerCheckAnim') }
               <p style={ styles.props }>
                 <em>default props</em><br/>
                 duration: <strong>1000</strong><br/>
-                stagger:  <strong>0</strong><br/>
-                timing:   <strong>ease</strong><br/>
+                stagger: <strong>0</strong><br/>
+                timing: <strong>ease</strong><br/>
                 playback: <strong>forwards</strong><br/>
-                fade:     <strong>false</strong>
+                fade: <strong>false</strong>
               </p>
             </div>
           </div>
@@ -90,11 +87,11 @@ export default class DemoPage extends React.Component {
             </MtSvgLines>
 
             <div style={ styles.info }>
-              { this._renderTrigger( 'triggerSigAnim' ) }
+              { this._renderTrigger('triggerSigAnim') }
               <p style={ styles.props }>
                 duration: <strong>2000</strong><br/>
-                stagger:  <strong>100</strong><br/>
-                timing:   <strong>linear</strong>
+                stagger: <strong>100</strong><br/>
+                timing: <strong>linear</strong>
               </p>
             </div>
           </div>
@@ -112,12 +109,12 @@ export default class DemoPage extends React.Component {
             </MtSvgLines>
 
             <div style={ styles.info }>
-              { this._renderTrigger( 'triggerChartAnim' ) }
+              { this._renderTrigger('triggerChartAnim') }
               <p style={ styles.props }>
                 duration: <strong>3000</strong><br/>
-                stagger:  <strong>50</strong><br/>
-                timing:   <strong>ease-in</strong><br/>
-                fade:     <strong>true</strong><br/>
+                stagger: <strong>50</strong><br/>
+                timing: <strong>ease-in</strong><br/>
+                fade: <strong>true</strong><br/>
                 <em>skip path</em>
               </p>
             </div>
@@ -136,11 +133,11 @@ export default class DemoPage extends React.Component {
             </MtSvgLines>
 
             <div style={ styles.info }>
-              { this._renderTrigger( 'triggerSpinnerAnim' ) }
+              { this._renderTrigger('triggerSpinnerAnim') }
               <p style={ styles.props }>
                 duration: <strong>1500</strong><br/>
-                stagger:  <strong>20</strong><br/>
-                timing:   <strong>linear</strong><br/>
+                stagger: <strong>20</strong><br/>
+                timing: <strong>linear</strong><br/>
                 playback: <strong>2 alternate-reverse both</strong>
               </p>
             </div>
@@ -149,11 +146,10 @@ export default class DemoPage extends React.Component {
         </div>
 
       </div>
-    );
+    )
   }
 
-
-  _renderGithubLogo() {
+  _renderGithubLogo () {
     return (
       <svg viewBox="0 0 54 54" width="32" height="32">
         <path fill="#888" d="M26.9,1.9c-13.8,0-25,11.5-25,25.6c0,11.3,7.2,20.9,17.1,24.3
@@ -164,42 +160,40 @@ export default class DemoPage extends React.Component {
           c0,0.7,0.5,1.5,1.7,1.2c9.9-3.4,17.1-13,17.1-24.3C51.9,13.3,40.8,1.9,26.9,1.9z"
         />
       </svg>
-    );
+    )
   }
 
-
   // button(s) partial
-  _renderTrigger( triggerKey ) {
-    const buttonsJsx = [];
+  _renderTrigger (triggerKey) {
+    const buttonsJsx = []
 
-    if ( !this.state.isIE ) {
+    if (!this.state.isIE) {
       buttonsJsx.push(
-        <a key="cssTrigger" style={ { ...styles.animLink, ...styles.animLinkCss } } href="#" onClick={ this._makeClickHandler( triggerKey, false ) } >
+        <a key="cssTrigger" style={ { ...styles.animLink, ...styles.animLinkCss } } href="#" onClick={ this._makeClickHandler(triggerKey, false) } >
           CSS »
         </a>
-      );
+      )
     }
 
     buttonsJsx.push(
-      <a key="jsTrigger" style={ styles.animLink } href="#" onClick={ this._makeClickHandler( triggerKey, true ) }>
+      <a key="jsTrigger" style={ styles.animLink } href="#" onClick={ this._makeClickHandler(triggerKey, true) }>
         JS »
       </a>
-    );
+    )
 
-    return buttonsJsx;
+    return buttonsJsx
   }
 
-
   // curried function to generate click handlers with the desired args
-  _makeClickHandler( triggerKey, jsOnly ) {
-    return ( e ) => {
-      e.preventDefault();
+  _makeClickHandler (triggerKey, jsOnly) {
+    return (e) => {
+      e.preventDefault()
 
       this.setState({
-        [ triggerKey ]: String( Date.now() ),
+        [ triggerKey ]: String(Date.now()),
         jsOnly
-      });
-    };
+      })
+    }
   }
 
 }
@@ -208,26 +202,26 @@ const styles = {
   wrapper: {
     position: 'relative',
     maxWidth: '800px',
-    margin:   '20px auto 0 auto'
+    margin: '20px auto 0 auto'
   },
   gitHubLink: {
     float: 'right'
   },
   title: {
-    width:      '100%',
-    color:      '#888',
+    width: '100%',
+    color: '#888',
     fontWeight: 200
   },
   row: {
     borderTop: '1px solid #888',
-    width:     '100%',   // for IE
+    width: '100%',   // for IE
     paddingTop: 20
   },
   ieMessage: {
-    color:           '#FFF',
+    color: '#FFF',
     backgroundColor: '#888',
-    fontSize:        14,
-    textAlign:       'center',
+    fontSize: 14,
+    textAlign: 'center'
     // marginBottom:    10
   },
   column: {
@@ -243,22 +237,22 @@ const styles = {
     padding: '10px 0 0 4%'
   },
   animLink: {
-    display:        'inline-block',
-    minWidth:       40,
-    padding:        '0 3px 2px',
-    color:          '#E52029',
-    border:         '1px solid #E52029',
-    borderRadius:   3,
-    marginRight:    5,
+    display: 'inline-block',
+    minWidth: 40,
+    padding: '0 3px 2px',
+    color: '#E52029',
+    border: '1px solid #E52029',
+    borderRadius: 3,
+    marginRight: 5,
     textDecoration: 'none',
-    textAlign:      'center'
+    textAlign: 'center'
   },
   animLinkCss: {
-    color:           '#FFF',
+    color: '#FFF',
     backgroundColor: '#E52029'
   },
   props: {
     fontSize: '12px',
-    color:    '#4C6A98'
+    color: '#4C6A98'
   }
-};
+}

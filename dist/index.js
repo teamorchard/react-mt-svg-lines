@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-dom"));
+		module.exports = factory(require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-dom"], factory);
+		define(["react"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("react"), require("react-dom")) : factory(root["react"], root["react-dom"]);
+		var a = typeof exports === 'object' ? factory(require("react")) : factory(root["react"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -68,11 +68,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(2);
+	var _utils = __webpack_require__(2);
 
-	var _utils = __webpack_require__(3);
-
-	var _tween = __webpack_require__(4);
+	var _tween = __webpack_require__(3);
 
 	var _tween2 = _interopRequireDefault(_tween);
 
@@ -115,7 +113,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    _this.state = {
-	      classKey: '', // unique class name for the wrapper, acts as internal "trigger" (re-generated each time anim is to run)
+	      classKey: '', // unique class name for the wrapper, an internal "trigger" (re-gen each time anim is to run)
 	      css: '', // generated CSS
 	      tweenElapsed: 0, // tween duration so far (ms)
 	      tweenProgress: 0 // tween completion (pct)
@@ -176,7 +174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'span',
 	        _extends({
 	          ref: function ref(c) {
-	            return _this2._svgWrapper = c;
+	            _this2._svgWrapper = c;
 	          },
 	          className: className + ' ' + classKey,
 	          style: { opacity: isHidden ? 0.01 : 1 }
@@ -230,7 +228,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      // >>> STARTING NEW ANIMATION...
 	      if (isStartNewAnim) {
-
 	        // set flags
 	        this._animStart = Date.now();
 	        this._lastClassKey = classKey;
@@ -241,7 +238,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        /* ----- JS MODE ----- */
 	        if (isAnimJS) {
-
 	          // parse props for use with Tween.js
 	          if (numOfRepeats > 0) {
 	            numOfRepeats = numOfRepeats - 1;
@@ -278,7 +274,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	          /* ----- CSS MODE ----- */
 	        } else {
-
 	          var css = '';
 
 	          // 1) determine number of path elems in svg
@@ -286,7 +281,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var pathQty = pathLenghts.length || 1;
 
 	          // 2) calc all timing values
-	          var staggerMult = (0, _utils.clamp)(stagger, 0, 100) / 100; // convert percentage to 0-1
+	          var staggerMult = (0, _utils.clamp)(stagger, 0, 100) / 100; // convert pct to 0-1
 	          var pathStaggerDelay = stagger > 0 ? duration / pathQty * staggerMult : 0;
 	          var pathDrawDuration = stagger > 0 ? duration - pathStaggerDelay * (pathQty - 1) * (2 - staggerMult) : duration;
 
@@ -307,10 +302,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // >>> ONGOING ANIMATION...
 	      } else if (this._animStart) {
-
 	        /* ----- JS MODE ----- */
 	        if (isAnimJS) {
-	          requestAnimationFrame(_tween2.default.update);
+	          window.requestAnimationFrame(_tween2.default.update);
 
 	          /* ----- CSS MODE ----- */
 	        } else {
@@ -336,7 +330,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Acquire selection of SVG 'path' elems contained within
 	     */
 	    value: function _selectPathElems() {
-	      var svgEl = (0, _reactDom.findDOMNode)(this._svgWrapper).getElementsByTagName('svg')[0];
+	      var svgEl = this._svgWrapper.getElementsByTagName('svg')[0];
 	      return svgEl ? svgEl.querySelectorAll('path') : [];
 	    }
 
@@ -487,7 +481,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  playback: _react.PropTypes.string, // iteration-count || direction || fill-mode (perhaps even play-state)
 	  fade: _react.PropTypes.bool, // apply a fade-in to each path
 	  callback: _react.PropTypes.func, // callback fn to run when when anim completes
-	  jsOnly: _react.PropTypes.bool // apply JS animation, regardless of browser
+	  jsOnly: _react.PropTypes.bool, // apply JS animation, regardless of browser
+	  children: _react.PropTypes.node
 	};
 	MtSvgLines.defaultProps = {
 	  className: 'mt-svg',
@@ -510,12 +505,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
-
-/***/ },
-/* 3 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -565,7 +554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -1369,10 +1358,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			root.TWEEN = TWEEN;
 		}
 	})(undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';

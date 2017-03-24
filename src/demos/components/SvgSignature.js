@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-export default function() {
-  return(
+const SvgSignature = () => {
+  return (
     <svg viewBox="0 0 100 100">
       <g fill="none" stroke="#4D6B96" strokeWidth="3" strokeMiterlimit="1" >
         <path d="M4.4 58.9C5.2 48.7 6.9 43.7 8.9 38c2.4-6.9 5-11.5 6.8-11.1s-1.8 27.9-6.5 45.6c1.9-9.8 4.5-19.4 6.6-29.2 1-4.6 2-9.2 3.1-13.8.9-3.6 3-13.2 4.6-13.3 2.1-.2-4.5 34.9-8.3 52.1 3.1-18.5 13.1-53.9 16.4-53.9 4.5 0-14.6 60.8-15.5 64.3s-3.2 12 2 13.8"/>
@@ -18,5 +18,7 @@ export default function() {
         <path d="M9.3 82.8c-3.3-5.8 9-4.2 16.1-3 7.5 1.2 14.9 2.8 22.6 3.4 11.2.9 33.9 2.7 41-8.7"/>
       </g>
     </svg>
-  );
+  )
 }
+
+export default SvgSignature

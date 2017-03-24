@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-export default function() {
-  return(
+const SvgSpinner = () => {
+  return (
     <svg viewBox="0 0 100 100">
       <g fill="none" strokeWidth="8" strokeMiterlimit="1" strokeLinecap="round">
         <path stroke="#FED74E" d="M50 95C25.1 95 5 74.9 5 50S25.1 5 50 5s45 20.1 45 45c0 24.8-20.3 45-45 45"/>
@@ -10,5 +10,7 @@ export default function() {
         <path stroke="#7A2A30" d="M50 65c-8.3 0-15-6.7-15-15s6.7-15 15-15 15 6.7 15 15c0 8.2-6.8 14.9-15 15"/>
       </g>
     </svg>
-  );
+  )
 }
+
+export default SvgSpinner
