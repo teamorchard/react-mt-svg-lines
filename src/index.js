@@ -55,19 +55,17 @@ export default class MtSvgLines extends React.Component {
   constructor (props) {
     super(props)
 
-    const initClassKey = `mt-${shortUID()}`
-
     this.state = {
-      classKey: initClassKey,   // unique class name for the wrapper, an internal "trigger" (re-gen each time anim is to run)
-      css: '',                  // generated CSS
-      tweenElapsed: 0,          // tween duration so far (ms)
-      tweenProgress: 0          // tween completion (pct)
+      classKey: `mt-${shortUID()}`,         // unique class name for the wrapper, an internal "trigger" (re-gen each time anim is to run)
+      css: '',                              // generated CSS
+      tweenElapsed: 0,                      // tween duration so far (ms)
+      tweenProgress: 0                      // tween completion (pct)
     }
 
     this._lastAnimate = ''
-    this._lastClassKey = initClassKey
+    this._lastClassKey = ''
 
-    this._animStart = 0         // anim start timestamp
+    this._animStart = 0                     // anim start timestamp
 
     this._pathElems = []
     this._pathDataFrom = {}
