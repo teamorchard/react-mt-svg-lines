@@ -12,7 +12,7 @@
   ],
   "author": "Peter Morawiec",
   "version": "0.6.0",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/moarwick/react-mt-svg-lines"
@@ -21,8 +21,9 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --content-base src/demos/",
-    "build": "rimraf public && node_modules/webpack/bin/webpack.js --progress --profile --colors",
-    "dist": "node_modules/webpack/bin/webpack.js --config webpack.dist.js",
+    "build": "rimraf public && webpack --progress --profile --colors",
+    "lint": "eslint src",
+    "dist": "babel src --out-dir lib --ignore demos",
     "prepublish": "npm run dist"
   },
   "browserify": {
@@ -30,87 +31,41 @@
       "reactify"
     ]
   },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-0",
-      "react"
-    ]
-  },
-  "eslintConfig": {
-    "rules": {
-      "indent": [
-        2,
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "quotes": [
-        2,
-        "single"
-      ],
-      "linebreak-style": [
-        2,
-        "unix"
-      ],
-      "semi": [
-        2,
-        "always"
-      ],
-      "react/jsx-key": 1,
-      "react/jsx-uses-react": 1,
-      "react/no-string-refs": 1,
-      "react/prefer-es6-class": 1,
-      "react/react-in-jsx-scope": 1
-    },
-    "parser": "babel-eslint",
-    "env": {
-      "browser": true,
-      "es6": true,
-      "mocha": true,
-      "node": true
-    },
-    "extends": "eslint:recommended",
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "globals": {
-      "describe": true,
-      "expect": true,
-      "it": true
-    },
-    "plugins": [
-      "react"
-    ]
+  "peerDependencies": {
+    "react": "^15.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
+    "babel-cli": "^6.24.0",
     "babel-core": "^6.10.4",
-    "babel-eslint": "^6.1.0",
+    "babel-eslint": "^7.2.1",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
-    "chai": "^3.5.0",
-    "css-loader": "^0.23.1",
-    "eslint-plugin-react": "^5.2.2",
+    "css-loader": "^0.27.3",
+    "eslint": "^3.18.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^6.9.0",
+    "eslint-plugin-standard": "^2.1.1",
     "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.9.0",
+    "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.22.0",
-    "mocha": "^2.5.3",
-    "node-sass": "^3.8.0",
-    "postcss-loader": "^0.9.1",
-    "react-hot-loader": "^1.3.0",
-    "rimraf": "^2.5.3",
-    "sass-loader": "^4.0.0",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.14.0",
+    "node-sass": "^4.5.1",
+    "postcss-loader": "^1.3.3",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
-    "tween.js": "^16.3.4"
+    "react-hot-loader": "^1.3.0",
+    "rimraf": "^2.5.3",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.0",
+    "tween.js": "^16.3.4",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.3",
+    "webpack-merge": "^1.1.2"
   }
 }

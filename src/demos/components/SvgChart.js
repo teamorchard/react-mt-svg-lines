@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-export default function() {
-  return(
+const SvgChart = () => {
+  return (
     <svg viewBox="0 0 100 100">
       <g strokeMiterlimit="10">
         <path fill="none" stroke="#A6C3C9" d="M22.5 4v90"/>
@@ -20,5 +20,7 @@ export default function() {
         <path fill="none" stroke="#009245" strokeWidth="5" strokeLinecap="round" d="M10.2 78.6c6.9-12.5 23.1-21.3 37.2-25.5 17.4-5.1 33.8-9.8 40.2-30.2"/>
       </g>
     </svg>
-  );
+  )
 }
+
+export default SvgChart

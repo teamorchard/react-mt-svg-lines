@@ -1,7 +1,7 @@
 react-mt-svg-lines
 ==================
 
-[![NPM](https://nodei.co/npm/react-mt-svg-lines.png?downloads=true)](https://nodei.co/npm/react-mt-svg-lines/)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
 ### Bring your SVGs to life
 
@@ -95,6 +95,12 @@ What if you don't want the animation applied to *ALL* paths inside your SVG? Add
 * IE/Edge: Doesn't seem to work on thick lines, round `stroke-linecap` appears regardless of offset, and other irregularities..
 
 ### Changelog
+**Ver 0.7.0**
+* No-op server-side
+* Do not budle/minify distribution package
+* Update dependencies
+* ESLint Standard
+
 **Ver 0.6.0**
 * Experimental support for IE/Edge via Tween.js
 
