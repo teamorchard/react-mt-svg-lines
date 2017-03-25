@@ -11,7 +11,6 @@ import SvgSpinner from '../components/SvgSpinner'
 import { isMsBrowser } from '../../utils.js'
 
 export default class DemoPage extends React.Component {
-
   constructor (props) {
     super(props)
 
@@ -195,7 +194,6 @@ export default class DemoPage extends React.Component {
       })
     }
   }
-
 }
 
 const styles = {
