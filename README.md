@@ -37,7 +37,7 @@ In your JSX, wrap it around any valid SVG...
 ```js
 <MtSvgLines animate={ true } duration={ 500 }>
   <svg viewBox="0 0 100 100">
-    <path stroke="green" stroke-width="10" fill="none" d="M20.8,51c0,0,20.8,18.2,21.5,18.2c0.6,0,33.3-38.5,33.3-38.5" />
+    <path stroke="green" strokeWidth="10" fill="none" d="M20.8,51c0,0,20.8,18.2,21.5,18.2c0.6,0,33.3-38.5,33.3-38.5" />
   </svg>
 </MtSvgLines>
 ```
@@ -94,8 +94,9 @@ What if you don't want the animation applied to *ALL* paths inside your SVG? Add
 * Remember to specify the `viewBox` on your SVGs, so they can be scaled to any size. By default, the SVG content will expand to fill its container, but you can give it a `width` attribute (either in finite units, or percentage).
 * IE/Edge: Doesn't seem to work on thick lines, round `stroke-linecap` appears regardless of offset, and other irregularities..
 
+
 ### Changelog
-**Ver 0.7.0**
+**Ver 0.7.1**
 * No-op server-side
 * Do not budle/minify distribution package
 * Update dependencies
