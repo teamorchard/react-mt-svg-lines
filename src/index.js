@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import { shortUID, clamp, trimFloat, isMsBrowser, contains } from './utils.js'
+import { shortUID, clamp, trimFloat, isMsBrowser } from './utils.js'
 import TWEEN from 'tween.js'
 
 const EASING = {
@@ -138,8 +138,8 @@ export default class MtSvgLines extends React.Component {
       if (isAnimJS) {
         // parse props for use with Tween.js
         if (numOfRepeats > 0) { numOfRepeats = numOfRepeats - 1 }
-        if (contains(playback, 'infinite')) { numOfRepeats = Infinity }
-        const isYoYo = contains(playback, 'alternate')
+        if (playback.includes('infinite')) { numOfRepeats = Infinity }
+        const isYoYo = playback.includes('alternate')
 
         // acquire path elems and generate to/from data sets
         this._pathElems = this._selectPathElems()

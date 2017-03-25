@@ -97,7 +97,7 @@ What if you don't want the animation applied to *ALL* paths inside your SVG? Add
 ### Changelog
 **Ver 0.7.0**
 * No-op server-side
-* Do not minify distribution bundle
+* Do not budle/minify distribution package
 * Update packages
 * ESLint Standard
 

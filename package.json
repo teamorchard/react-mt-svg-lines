@@ -12,7 +12,7 @@
   ],
   "author": "Peter Morawiec",
   "version": "0.6.0",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/moarwick/react-mt-svg-lines"
@@ -23,8 +23,7 @@
     "start": "webpack-dev-server --content-base src/demos/",
     "build": "rimraf public && webpack --progress --profile --colors",
     "lint": "eslint src",
-    "dist": "webpack --config webpack.dist.js",
-    "lib": "babel -d lib src",
+    "dist": "babel src --out-dir lib --ignore demos",
     "prepublish": "npm run dist"
   },
   "browserify": {
