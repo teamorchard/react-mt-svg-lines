@@ -96,7 +96,7 @@ What if you don't want the animation applied to *ALL* paths inside your SVG? Add
 
 
 ### Changelog
-**Ver 0.7.1**
+**Ver 0.7.2**
 * No-op server-side
 * Do not budle/minify distribution package
 * Update dependencies
