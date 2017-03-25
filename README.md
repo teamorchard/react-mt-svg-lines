@@ -95,7 +95,7 @@ What if you don't want the animation applied to *ALL* paths inside your SVG? Add
 * IE/Edge: Doesn't seem to work on thick lines, round `stroke-linecap` appears regardless of offset, and other irregularities..
 
 ### Changelog
-**Ver 0.7.0**
+**Ver 0.7.1**
 * No-op server-side
 * Do not budle/minify distribution package
 * Update dependencies
