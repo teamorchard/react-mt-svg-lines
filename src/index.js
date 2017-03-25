@@ -55,17 +55,19 @@ export default class MtSvgLines extends React.Component {
   constructor (props) {
     super(props)
 
+    const initClassKey = `mt-${shortUID()}`
+
     this.state = {
-      classKey: '',         // unique class name for the wrapper, an internal "trigger" (re-gen each time anim is to run)
-      css: '',              // generated CSS
-      tweenElapsed: 0,      // tween duration so far (ms)
-      tweenProgress: 0      // tween completion (pct)
+      classKey: initClassKey,   // unique class name for the wrapper, an internal "trigger" (re-gen each time anim is to run)
+      css: '',                  // generated CSS
+      tweenElapsed: 0,          // tween duration so far (ms)
+      tweenProgress: 0          // tween completion (pct)
     }
 
     this._lastAnimate = ''
-    this._lastClassKey = ''
+    this._lastClassKey = initClassKey
 
-    this._animStart = 0     // anim start timestamp
+    this._animStart = 0         // anim start timestamp
 
     this._pathElems = []
     this._pathDataFrom = {}
@@ -73,32 +75,11 @@ export default class MtSvgLines extends React.Component {
     this._tweenData = {}
   }
 
-  componentWillMount () {
-    this._setClassKey(this.props.animate)
-  }
-
   componentWillReceiveProps (nextProps) {
-    this._setClassKey(nextProps.animate)
-  }
-
-  render () {
-    // destruct all component-specific props, so '...rest' can be applied to wrapper <span>
-    // eslint-disable-next-line no-unused-vars
-    const { className, animate, duration, stagger, timing, playback, fade, jsOnly, children, callback, ...rest } = this.props
-    const { classKey, css } = this.state
-    const isHidden = animate === 'hide'
-
-    return (
-      <span
-        ref={ c => { this._svgWrapper = c } }
-        className={ `${className} ${classKey}` }
-        style={ { opacity: isHidden ? 0.01 : 1 } }
-        { ...rest }
-      >
-        <style>{ css }</style>
-        { children }
-      </span>
-    )
+    if (nextProps.animate !== this._lastAnimate) {
+      this._lastAnimate = nextProps.animate
+      this.setState({ classKey: `mt-${shortUID()}` })
+    }
   }
 
   componentDidMount () {
@@ -107,6 +88,31 @@ export default class MtSvgLines extends React.Component {
 
   componentDidUpdate () {
     this._animate()
+  }
+
+  render () {
+    // destruct all component-specific props, so '...rest' can be applied to wrapper <span>
+    // eslint-disable-next-line no-unused-vars
+    const { className, animate, duration, stagger, timing, playback, fade, jsOnly, children, callback, ...rest } = this.props
+    const { classKey, css } = this.state
+    const isServer = typeof window === 'undefined'
+    const isDelayed = typeof animate === 'number' && animate > 0
+    const isHidden = animate === 'hide'
+    const opacity = (isServer && isDelayed) || isHidden
+      ? 0.01
+      : 1
+
+    return (
+      <span
+        ref={ c => { this._svgWrapper = c } }
+        className={ `${className} ${classKey}` }
+        style={ { opacity } }
+        { ...rest }
+      >
+        <style>{ css }</style>
+        { children }
+      </span>
+    )
   }
 
   // ------------------------------------------------------
@@ -335,15 +341,5 @@ export default class MtSvgLines extends React.Component {
         animation-delay:         ${totalDelay}s;
       }
     `
-  }
-
-  /*
-   * Check if animate flag is new, and if true, set a new classKey into state (trigger anim)
-   */
-  _setClassKey (animate) {
-    if (animate !== this._lastAnimate) {
-      this._lastAnimate = animate
-      this.setState({ classKey: `mt-${shortUID()}` })
-    }
   }
 }
