@@ -24,6 +24,7 @@
     "build": "rimraf public && webpack --progress --profile --colors",
     "lint": "eslint src",
     "dist": "webpack --config webpack.dist.js",
+    "lib": "babel -d lib src",
     "prepublish": "npm run dist"
   },
   "browserify": {
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
+    "babel-cli": "^6.24.0",
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.0",
     "babel-loader": "^6.2.4",
