@@ -14,7 +14,6 @@ const EASING = {
 }
 
 export default class MtSvgLines extends React.Component {
-
   static propTypes = {
     className: PropTypes.string,            // custom CSS class (applied to svg elem)
     animate: PropTypes.oneOfType([          // external animation trigger
