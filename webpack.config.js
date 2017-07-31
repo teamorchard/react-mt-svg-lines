@@ -9,10 +9,6 @@ var TARGET_ENV = process.env.npm_lifecycle_event === 'build' ? 'production' : 'd
 
 // common Webpack config settings
 var commonConfig = {
-  // resolve: {
-  //   extensions: [ '', '.js' ]
-  // },
-
   output: {
     path: path.resolve(__dirname, 'public/'),
     filename: '[hash].min.js'
@@ -28,18 +24,13 @@ var commonConfig = {
         ],
         include: path.resolve(__dirname, 'src')
       },
-      // {
-      //   test: /\.json?$/,
-      //   exclude: /node_modules/,
-      //   loader: 'json'
-      // },
       {
         test: /\.(png|jpg|jpeg)$/,
         exclude: /node_modules/,
         use: [
           {
             loader: 'url-loader',
-            options: { limit: 8192, name: './img/[hash].[ext]' }   // inline if under 8k
+            options: { limit: 8192, name: './img/[hash].[ext]' } // inline if under 8k
           }
         ]
       },
@@ -68,8 +59,6 @@ var commonConfig = {
       filename: 'index.html'
     })
   ]
-
-  // postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ]
 }
 
 // additional Webpack settings when running locally ('npm start')
@@ -104,7 +93,7 @@ if (TARGET_ENV === 'development') {
           use: [
             { loader: 'style-loader' },
             { loader: 'css-loader' },
-            // { loader: 'postcss-loader', options: {} },
+            { loader: 'postcss-loader' },
             { loader: 'sass-loader' }
           ]
         }
@@ -132,11 +121,10 @@ if (TARGET_ENV === 'production') {
         {
           // create and save out a CSS bundle (using ExtractTextPlugin)
           test: /\.(css|scss)$/,
-          loader: ExtractTextPlugin.extract('style-loader', [
-            'css-loader',
-            'postcss-loader',
-            'sass-loader'
-          ])
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [ 'css-loader', 'postcss-loader', 'sass-loader' ]
+          })
         }
       ]
     },
@@ -148,8 +136,7 @@ if (TARGET_ENV === 'production') {
       }),
 
       // optimizations
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.OccurrenceOrderPlugin(),
 
       // save out CSS bundle (backtrack out of scripts/ to save into css/)
       new ExtractTextPlugin('css/[hash].min.css', { allChunks: true }),
